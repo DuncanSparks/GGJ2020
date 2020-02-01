@@ -9,6 +9,8 @@ var face: int = Direction.Up
 
 onready var spr := $Sprite as AnimatedSprite
 
+# ======================================================
+
 func _ready():
 	pass
 
@@ -22,11 +24,15 @@ func _process(delta):
 	
 	direction_management()
 	sprite_management()
+	
+	if Input.is_action_just_pressed("attack"):
+		throw_bullet()
 
 
 func _physics_process(delta):
 	move_and_slide(velocity * Speed)
 
+# ======================================================
 
 func direction_management():
 	var prev_face := face
@@ -55,3 +61,7 @@ func sprite_management():
 			spr.play("left")
 		Direction.Right:
 			spr.play("right")
+			
+			
+func throw_bullet():
+	pass
