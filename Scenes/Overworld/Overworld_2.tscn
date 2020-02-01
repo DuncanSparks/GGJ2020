@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Resources/TileMap.tres" type="TileSet" id=1]
-[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/LoadingZone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/WorldText.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Room.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 8 )
 
 [node name="Scene" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -50
@@ -19,13 +27,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 161, 150 )
-bullet_available = false
-
 [node name="Barrier" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 3
+collision_mask = 3
 format = 1
 tile_data = PoolIntArray( 65544, 4, 0, 65545, 4, 0, 65546, 4, 0, 65547, 4, 0 )
 __meta__ = {
@@ -35,11 +41,37 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="WorldText" parent="CanvasLayer" instance=ExtResource( 4 )]
-text_to_display = "We have fallen prey to dust and ashes."
+margin_left = 168.0
+margin_right = 280.0
+text_to_display = "Use your orb to heal the afflicted"
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 88, 64 )
 health = 1
 follow = false
 shoot = false
+healed_text = "Thank you..."
+
+[node name="LoadingZone" parent="." instance=ExtResource( 2 )]
+position = Vector2( 160, 184 )
+target_scene = "res://Scenes/Overworld/Overworld_1.tscn"
+direction = 1
+
+[node name="CollisionShape2D" parent="LoadingZone" index="0"]
+shape = SubResource( 1 )
+
+[node name="LoadingZone2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 160, 0 )
+target_scene = "res://Scenes/Overworld/Overworld_3.tscn"
+
+[node name="CollisionShape2D" parent="LoadingZone2" index="0"]
+shape = SubResource( 2 )
 [connection signal="ready" from="." to="CanvasLayer/WorldText" method="set_display" binds= [ true ]]
+[connection signal="room_is_cleared" from="." to="Barrier" method="queue_free"]
+[connection signal="room_is_cleared" from="." to="Enemy" method="heal" binds= [ true ]]
+[connection signal="healed" from="Enemy" to="." method="clear_room"]
+[connection signal="healed" from="Enemy" to="Barrier" method="queue_free"]
+
+[editable path="LoadingZone"]
+
+[editable path="LoadingZone2"]

@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal healed
+
 export(float) var speed := 25.0
 
 var velocity := Vector2.ZERO
@@ -25,15 +27,18 @@ onready var spr := $Sprite as AnimatedSprite
 onready var text := $Text as RichTextLabel
 onready var timer_shoot := $TimerShoot as Timer
 
-onready var Player = get_tree().get_current_scene().get_node("Player")
+#onready var Player = get_tree().get_current_scene().get_node("Player")
 
 # ======================================================
 
 func _ready():
+	face = Direction.Down
+	
 	timer.set_wait_time(rand_range(2, 4))
 	set_text(healed_text)
-	timer_shoot.set_wait_time(rand_range(1.5, 3))
-	timer_shoot.start()
+	if shoot:
+		timer_shoot.set_wait_time(rand_range(1.5, 3))
+		timer_shoot.start()
 	
 	
 func _process(delta):
@@ -59,6 +64,7 @@ func _process(delta):
 			
 		walking = velocity != Vector2.ZERO
 		
+	if not healed:
 		direction_management()
 		sprite_management()
 	
@@ -77,11 +83,16 @@ func hit():
 	$PartsHealed.set_emitting(true)
 	health -= 1
 	if health <= 0:
+		heal()
+
+
+func heal(room_start: bool = false):
+	$PartsDust.set_emitting(false)
+	healed = true
+	if not room_start:
 		$SoundHeal.play()
-		#$PartsHealed.set_emitting(true)
-		$PartsDust.set_emitting(false)
-		healed = true
 		Controller.add_enemy_healed()
+		emit_signal("healed")
 
 
 func is_healed() -> bool:

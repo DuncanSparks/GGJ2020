@@ -11,6 +11,8 @@ var walking := false
 var health: int = 5
 var iframes := false
 
+var loading := false
+
 export(bool) var bullet_available := true
 
 const bullet_ref := preload("res://Prefabs/PlayerBullet.tscn")
@@ -24,7 +26,7 @@ onready var healthbar := $Healthbar as TextureProgress
 # ======================================================
 
 func _ready():
-	pass
+	set_position(Vector2(160, 120))
 
 
 func _process(delta):
@@ -53,6 +55,10 @@ func _physics_process(delta):
 
 # ======================================================
 
+func set_face(value: int):
+	face = value
+
+
 func set_bullet_available(value: bool):
 	bullet_available = value
 	
@@ -62,6 +68,14 @@ func damage(amount: int):
 	health -= amount
 	iframes = true
 	$AnimationPlayer.play("IFrames")
+	
+	
+func is_loading() -> bool:
+	return loading
+	
+	
+func set_loading(value: bool):
+	loading = value
 
 # ======================================================
 
@@ -104,7 +118,7 @@ func throw_bullet():
 	var bullet := bullet_ref.instance()
 	bullet.set_position(get_position())
 	bullet.set_global_rotation(get_position().direction_to(get_global_mouse_position()).angle())
-	get_tree().get_root().add_child(bullet)
+	get_tree().get_current_scene().add_child(bullet)
 	sound_kick.play()
 
 

@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Controller="*res://Prefabs/Controller.tscn"
+Player="*res://Prefabs/Player.tscn"
 
 [display]
 
