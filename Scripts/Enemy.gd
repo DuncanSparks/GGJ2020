@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const Speed: float = 100.0
+const Speed: float = 25.0
 
 var velocity := Vector2.ZERO
 
@@ -8,6 +8,8 @@ enum Direction {Up, Down, Left, Right}
 var face: int = Direction.Up
 
 export(int) var health := 2
+
+var healed := false
 
 onready var timer := $Timer as Timer
 onready var spr := $Sprite as AnimatedSprite
@@ -20,18 +22,22 @@ func _ready():
 	
 func _process(delta):
 	
-	if Player.position.x < position.x:
-		velocity.x = -1
+	if not healed:
+		if Player.position.x < position.x:
+			velocity.x = -1
+		else:
+			velocity.x = 1
+		
+		if Player.position.y < position.y:
+			velocity.y = -1
+		else:
+			velocity.y = 1
+		
+		direction_management()
+		sprite_management()
 	else:
-		velocity.x = 1
-	
-	if Player.position.y < position.y:
-		velocity.y = -1
-	else:
-		velocity.y = 1
-	
-	direction_management()
-	sprite_management()
+		velocity = Vector2.ZERO
+		spr.play("healed")
 
 
 func _physics_process(delta):
@@ -43,6 +49,12 @@ func hit():
 	health -= 1
 	if health <= 0:
 		$SoundHeal.play()
+		$PartsHealed.set_emitting(true)
+		healed = true
+
+
+func is_healed() -> bool:
+	return healed
 
 
 func direction_management():
