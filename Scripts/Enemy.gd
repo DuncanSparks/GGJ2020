@@ -7,18 +7,29 @@ var velocity := Vector2.ZERO
 enum Direction {Up, Down, Left, Right}
 var face: int = Direction.Up
 
+onready var timer := $Timer as Timer
 onready var spr := $Sprite as AnimatedSprite
 
+onready var Player = get_tree().get_current_scene().get_node("Player")
+
+
 func _ready():
-	pass
-
-
-func _process(delta):
-	var xx := int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	var yy := int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
+	timer.set_wait_time(rand_range(2, 4))
 	
-	velocity.x = xx
-	velocity.y = yy
+func _process(delta):
+	
+	if Player.position.x < position.x:
+		velocity.x = -1
+	else:
+		velocity.x = 1
+	
+	if Player.position.y < position.y:
+		velocity.y = -1
+	else:
+		velocity.y = 1
+	
+	
+	#velocity
 	
 	direction_management()
 	sprite_management()
