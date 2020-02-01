@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const Speed: float = 25.0
+export(float) var speed := 25.0
 
 var velocity := Vector2.ZERO
 
@@ -14,11 +14,16 @@ var healed := false
 var in_area := false
 
 export(bool) var follow := true
+export(bool) var shoot := true
+
 export(String, MULTILINE) var healed_text
+
+const bullet_ref := preload("res://Prefabs/Bullet.tscn")
 
 onready var timer := $Timer as Timer
 onready var spr := $Sprite as AnimatedSprite
 onready var text := $Text as RichTextLabel
+onready var timer_shoot := $TimerShoot as Timer
 
 onready var Player = get_tree().get_current_scene().get_node("Player")
 
@@ -27,6 +32,8 @@ onready var Player = get_tree().get_current_scene().get_node("Player")
 func _ready():
 	timer.set_wait_time(rand_range(2, 4))
 	set_text(healed_text)
+	timer_shoot.set_wait_time(rand_range(1.5, 3))
+	timer_shoot.start()
 	
 	
 func _process(delta):
@@ -61,7 +68,7 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	move_and_slide(velocity * Speed)
+	move_and_slide(velocity * speed)
 	
 # ======================================================
 	
@@ -72,6 +79,7 @@ func hit():
 	if health <= 0:
 		$SoundHeal.play()
 		#$PartsHealed.set_emitting(true)
+		$PartsDust.set_emitting(false)
 		healed = true
 		Controller.add_enemy_healed()
 
@@ -120,6 +128,7 @@ func sprite_management():
 	spr.play(anim)
 
 
+
 func _on_AreaText_body_entered(body):
 	if body.is_in_group("Player") and healed:
 		in_area = true
@@ -131,3 +140,13 @@ func _on_AreaText_body_exited(body):
 	if body.is_in_group("Player"):
 		in_area = false
 		text.hide()
+
+
+func _on_TimerShoot_timeout():
+	if not healed:
+		$SoundShoot.play()
+		var bullet := bullet_ref.instance()
+		bullet.set_position(get_position())
+		bullet.set_global_rotation(get_angle_to(Player.position))
+		get_tree().get_root().add_child(bullet)
+		timer_shoot.set_wait_time(rand_range(1.5, 3))

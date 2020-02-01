@@ -58,7 +58,7 @@ tracks/0/keys = {
 "PlayerBullet",
 ]]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 mass = 0.00102041
 gravity_scale = 0.0
 contacts_reported = 1
@@ -106,7 +106,12 @@ stream = ExtResource( 3 )
 volume_db = -10.0
 
 [node name="TimerPickUp" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="TimerStopHitting" type="Timer" parent="."]
+wait_time = 1.1
 one_shot = true
 autostart = true
 
@@ -116,4 +121,5 @@ one_shot = true
 [connection signal="body_entered" from="." to="." method="_on_PlayerBullet_body_entered"]
 [connection signal="body_entered" from="AreaPickUp" to="." method="_on_AreaPickUp_body_entered"]
 [connection signal="timeout" from="TimerPickUp" to="." method="_on_TimerPickUp_timeout"]
+[connection signal="timeout" from="TimerStopHitting" to="." method="_on_TimerStopHitting_timeout"]
 [connection signal="timeout" from="TimerDestroy" to="." method="queue_free"]

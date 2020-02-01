@@ -58,6 +58,7 @@ func set_bullet_available(value: bool):
 	
 	
 func damage(amount: int):
+	$SoundHurt.play()
 	health -= amount
 	iframes = true
 	$AnimationPlayer.play("IFrames")
@@ -110,3 +111,8 @@ func throw_bullet():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "IFrames":
 		iframes = false
+
+
+func _on_Hurtbox_body_entered(body):
+	#if body.is_in_group("Enemy"):
+	pass

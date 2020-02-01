@@ -1,13 +1,25 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/Effects/Rain.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 102 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 153, 8 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 240, 10, 1 )
+flag_disable_z = true
+direction = Vector3( -0.8, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 400.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
 
 [node name="Scene" type="Node2D"]
 
@@ -21,6 +33,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_right = 321.0
 margin_bottom = 11.0
 color = Color( 0.572549, 0.572549, 0.572549, 1 )
@@ -29,6 +42,7 @@ __meta__ = {
 }
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 margin_top = 168.0
 margin_right = 321.0
 margin_bottom = 179.0
@@ -38,6 +52,7 @@ __meta__ = {
 }
 
 [node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
 margin_top = 10.0
 margin_right = 16.0
 margin_bottom = 171.0
@@ -47,6 +62,7 @@ __meta__ = {
 }
 
 [node name="ColorRect4" type="ColorRect" parent="."]
+visible = false
 margin_left = 305.0
 margin_top = 10.0
 margin_right = 321.0
@@ -62,6 +78,7 @@ __meta__ = {
 position = Vector2( 160, 90 )
 
 [node name="Walls" type="StaticBody2D" parent="."]
+visible = false
 collision_layer = 3
 collision_mask = 3
 
@@ -83,3 +100,15 @@ shape = SubResource( 2 )
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 80, 55 )
+speed = 30.0
+healed_text = "Hello there."
+
+[node name="PartsRain" type="Particles2D" parent="."]
+position = Vector2( 192, 0 )
+amount = 32
+lifetime = 0.8
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 242, 114 )

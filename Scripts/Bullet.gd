@@ -3,12 +3,15 @@ extends RigidBody2D
 #Speed
 export var speed := 5
 export var min_speed := 5
-export var damage := 5
+#export var damage := 5
 
-onready var animated_sprite := $AnimatedSprite as AnimatedSprite
+
+onready var sprite := $Sprite as Sprite
 
 func _ready():
 	linear_velocity = Vector2(speed, 0).rotated(global_rotation)
+	if randi() > 0.5:
+		sprite.set_flip_v(true)
 
 
 func _process(delta):
@@ -16,23 +19,24 @@ func _process(delta):
 		delete()
 
 
-func damage(body):
-	if body.is_in_group("enemy"):
-		body.health -= damage
+#func damage(body):#
+#	if body.is_in_group("enemy"):
+#		body.health -= damage
 
 
 func collide(body):
-	damage(body)
-	animated_sprite.play('die')
+	if body.is_in_group("Player"):
+		body.damage(1)
+	#animated_sprite.play('die')
+	delete()
 
 
 func delete():
-	animated_sprite.play('die')
-
-
-func _animation_finished(animation):
-	if animation == 'die':
-		queue_free()
+	queue_free()
+#
+#
+#func _animation_finished():
+#	queue_free()
 
 
 func offscreen() -> bool:

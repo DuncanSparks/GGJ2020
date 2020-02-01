@@ -33,7 +33,7 @@ func _on_AreaPickUp_body_entered(body: Node):
 
 
 func _on_TimerPickUp_timeout():
-	can_hit = false
+	#can_hit = false
 	can_pick_up = true
 	#$CollisionShape2D.set_disabled(true)
 
@@ -41,3 +41,7 @@ func _on_TimerPickUp_timeout():
 func _on_PlayerBullet_body_entered(body):
 	if can_hit and body.is_in_group("Enemy") and not body.is_healed():
 		body.hit()
+
+
+func _on_TimerStopHitting_timeout():
+	can_hit = false
