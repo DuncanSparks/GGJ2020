@@ -52,6 +52,6 @@ func sprite_management():
 		Direction.Down:
 			spr.play("down")
 		Direction.Left:
-			pass
+			spr.play("left")
 		Direction.Right:
-			pass
+			spr.play("right")
