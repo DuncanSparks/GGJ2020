@@ -27,6 +27,8 @@ func _ready():
 
 
 func _process(delta):
+	set_z_index(int(get_position().y))
+	
 	var xx := int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
 	var yy := int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
 	
