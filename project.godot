@@ -18,6 +18,14 @@ _global_script_class_icons={
 config/name="Ggj 2020"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=320
+window/size/height=180
+window/size/resizable=false
+window/size/test_width=960
+window/size/test_height=540
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
