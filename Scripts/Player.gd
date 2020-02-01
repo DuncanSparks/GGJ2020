@@ -70,6 +70,10 @@ func damage(amount: int):
 	$AnimationPlayer.play("IFrames")
 	
 	
+func heal(amount: int):
+	health = min(health + amount, 5)
+	
+	
 func is_loading() -> bool:
 	return loading
 	

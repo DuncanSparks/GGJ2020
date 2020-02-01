@@ -40,6 +40,11 @@ func _ready():
 		timer_shoot.set_wait_time(rand_range(1.5, 3))
 		timer_shoot.start()
 	
+	var id: String = get_tree().get_current_scene().filename + "--" + get_path()
+	if id in Controller.enemies_healed:
+		heal(true)
+		set_position(Controller.enemies_healed[id])
+	
 	
 func _process(delta):
 	set_z_index(int(get_position().y))
@@ -92,6 +97,7 @@ func heal(room_start: bool = false):
 	if not room_start:
 		$SoundHeal.play()
 		Controller.add_enemy_healed()
+		Controller.enemies_healed[get_tree().get_current_scene().filename + "--" + get_path()] = get_position()
 		emit_signal("healed")
 
 
@@ -159,5 +165,5 @@ func _on_TimerShoot_timeout():
 		var bullet := bullet_ref.instance()
 		bullet.set_position(get_position())
 		bullet.set_global_rotation(get_angle_to(Player.position))
-		get_tree().get_root().add_child(bullet)
+		get_tree().get_current_scene().add_child(bullet)
 		timer_shoot.set_wait_time(rand_range(1.5, 3))

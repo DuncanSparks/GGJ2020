@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/TileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Prefabs/LoadingZone.tscn" type="PackedScene" id=2]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 24 )
 
 [node name="Scene" type="Node2D"]
 script = ExtResource( 5 )
@@ -25,9 +28,8 @@ __meta__ = {
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 248, 40 )
-health = 1
 follow = false
-healed_text = "Thank you..."
+healed_text = "Has our kingdom fallen?"
 
 [node name="LoadingZone" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 184 )
@@ -36,7 +38,25 @@ direction = 1
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
 shape = SubResource( 1 )
-[connection signal="room_is_cleared" from="." to="Enemy" method="heal" binds= [ true ]]
+
+[node name="LoadingZone3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 160, 0 )
+target_scene = "res://Scenes/Overworld/Overworld_4.tscn"
+
+[node name="CollisionShape2D" parent="LoadingZone3" index="0"]
+shape = SubResource( 1 )
+
+[node name="LoadingZone2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 88 )
+target_scene = "res://Scenes/Overworld/Overworld_5.tscn"
+direction = 2
+
+[node name="CollisionShape2D" parent="LoadingZone2" index="0"]
+shape = SubResource( 2 )
 [connection signal="healed" from="Enemy" to="." method="clear_room"]
 
 [editable path="LoadingZone"]
+
+[editable path="LoadingZone3"]
+
+[editable path="LoadingZone2"]
