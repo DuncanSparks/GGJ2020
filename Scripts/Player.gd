@@ -7,6 +7,8 @@ var velocity := Vector2.ZERO
 enum Direction {Up, Down, Left, Right}
 var face: int = Direction.Up
 
+const bullet_ref := preload("res://Prefabs/PlayerBullet.tscn")
+
 onready var spr := $Sprite as AnimatedSprite
 
 # ======================================================
@@ -64,4 +66,7 @@ func sprite_management():
 			
 			
 func throw_bullet():
-	pass
+	var bullet := bullet_ref.instance()
+	bullet.set_position(get_position())
+	bullet.set_global_rotation(get_position().direction_to(get_global_mouse_position()).angle())
+	get_tree().get_root().add_child(bullet)
