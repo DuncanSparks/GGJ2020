@@ -7,6 +7,8 @@ var velocity := Vector2.ZERO
 enum Direction {Up, Down, Left, Right}
 var face: int = Direction.Up
 
+var bullet_available := true
+
 const bullet_ref := preload("res://Prefabs/PlayerBullet.tscn")
 
 onready var spr := $Sprite as AnimatedSprite
@@ -27,12 +29,18 @@ func _process(delta):
 	direction_management()
 	sprite_management()
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and bullet_available:
 		throw_bullet()
+		bullet_available = false
 
 
 func _physics_process(delta):
 	move_and_slide(velocity * Speed)
+
+# ======================================================
+
+func set_bullet_available(value: bool):
+	bullet_available = value
 
 # ======================================================
 
