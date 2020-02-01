@@ -12,6 +12,10 @@ func _ready():
 	set_bounce(0.8)
 
 
+func _process(delta):
+	set_z_index(int(get_position().y))
+
+
 func damage(body):
 	if can_hit and body.is_in_group("enemy"):
 		body.health -= damage

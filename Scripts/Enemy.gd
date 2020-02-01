@@ -11,20 +11,31 @@ var walking := false
 export(int) var health := 2
 
 var healed := false
+var in_area := false
+
+export(bool) var follow := true
+export(String, MULTILINE) var healed_text
 
 onready var timer := $Timer as Timer
 onready var spr := $Sprite as AnimatedSprite
+onready var text := $Text as RichTextLabel
 
 onready var Player = get_tree().get_current_scene().get_node("Player")
 
+# ======================================================
 
 func _ready():
 	timer.set_wait_time(rand_range(2, 4))
+	set_text(healed_text)
+	
 	
 func _process(delta):
 	set_z_index(int(get_position().y))
 	
-	if not healed:
+	if in_area:
+		text.visible_characters += 1
+	
+	if follow and not healed:
 		if Player.position.x < position.x:
 			velocity.x = -1
 			face = Direction.Left
@@ -43,7 +54,8 @@ func _process(delta):
 		
 		direction_management()
 		sprite_management()
-	else:
+	
+	if healed:
 		velocity = Vector2.ZERO
 		spr.play("healed")
 
@@ -51,6 +63,7 @@ func _process(delta):
 func _physics_process(delta):
 	move_and_slide(velocity * Speed)
 	
+# ======================================================
 	
 func hit():
 	$SoundHit.play()
@@ -60,11 +73,17 @@ func hit():
 		$SoundHeal.play()
 		#$PartsHealed.set_emitting(true)
 		healed = true
+		Controller.add_enemy_healed()
 
 
 func is_healed() -> bool:
 	return healed
+	
+	
+func set_text(value: String):
+	$Text.set_bbcode("[wave amp=30 freq=4][center]" + value)
 
+# ======================================================
 
 func direction_management():
 	var prev_face := face
@@ -99,3 +118,16 @@ func sprite_management():
 		anim += "_walk"
 		
 	spr.play(anim)
+
+
+func _on_AreaText_body_entered(body):
+	if body.is_in_group("Player") and healed:
+		in_area = true
+		text.set_visible_characters(0)
+		text.show()
+
+
+func _on_AreaText_body_exited(body):
+	if body.is_in_group("Player"):
+		in_area = false
+		text.hide()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Sprites/Player/Player_down.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
@@ -27,14 +27,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "right",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "right",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -52,6 +52,11 @@ animations = [ {
 "name": "left_walk",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "down",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 12 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "up_walk",
@@ -61,15 +66,26 @@ animations = [ {
 "loop": true,
 "name": "down_walk",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "down",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 4.5, 4 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "IFrames"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -101,3 +117,8 @@ texture_progress = ExtResource( 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/IFrames = SubResource( 3 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

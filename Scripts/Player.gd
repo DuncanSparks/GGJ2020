@@ -9,6 +9,7 @@ var face: int = Direction.Down
 var walking := false
 
 var health: int = 5
+var iframes := false
 
 var bullet_available := true
 
@@ -58,6 +59,8 @@ func set_bullet_available(value: bool):
 	
 func damage(amount: int):
 	health -= amount
+	iframes = true
+	$AnimationPlayer.play("IFrames")
 
 # ======================================================
 
@@ -102,3 +105,8 @@ func throw_bullet():
 	bullet.set_global_rotation(get_position().direction_to(get_global_mouse_position()).angle())
 	get_tree().get_root().add_child(bullet)
 	sound_kick.play()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "IFrames":
+		iframes = false
