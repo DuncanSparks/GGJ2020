@@ -11,7 +11,7 @@ var walking := false
 var health: int = 5
 var iframes := false
 
-var bullet_available := true
+export(bool) var bullet_available := true
 
 const bullet_ref := preload("res://Prefabs/PlayerBullet.tscn")
 
