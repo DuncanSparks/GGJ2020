@@ -7,6 +7,8 @@ var velocity := Vector2.ZERO
 enum Direction {Up, Down, Left, Right}
 var face: int = Direction.Up
 
+export(int) var health := 2
+
 onready var timer := $Timer as Timer
 onready var spr := $Sprite as AnimatedSprite
 
@@ -28,15 +30,19 @@ func _process(delta):
 	else:
 		velocity.y = 1
 	
-	
-	#velocity
-	
 	direction_management()
 	sprite_management()
 
 
 func _physics_process(delta):
 	move_and_slide(velocity * Speed)
+	
+	
+func hit():
+	$SoundHit.play()
+	health -= 1
+	if health <= 0:
+		$SoundHeal.play()
 
 
 func direction_management():
