@@ -85,6 +85,7 @@ healed_text = "Is there anything left?"
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 104 )
 navigator = NodePath("../Navigation2D")
+healed_text = "I feel the dust leaving..."
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 

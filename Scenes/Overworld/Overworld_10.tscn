@@ -73,7 +73,7 @@ healed_text = "Ah..."
 position = Vector2( 280, 128 )
 speed = 55.0
 follow = false
-healed_text = "Ah..."
+healed_text = "Our trio returns."
 
 [node name="Enemy3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 248, 160 )
@@ -81,7 +81,7 @@ speed = 55.0
 follow = false
 shoot = false
 ground_attack = true
-healed_text = "Ah..."
+healed_text = "My friends!"
 
 [node name="LoadingZone" parent="." instance=ExtResource( 3 )]
 position = Vector2( 320, 56 )
