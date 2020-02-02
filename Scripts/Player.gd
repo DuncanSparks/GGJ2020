@@ -95,6 +95,10 @@ func get_health() -> int:
 	
 func set_lock_movement(value: bool):
 	lock_movement = value
+	
+	
+func is_in_iframes() -> bool:
+	return iframes
 
 # ======================================================
 

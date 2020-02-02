@@ -57,8 +57,8 @@ tracks/0/keys = {
 [node name="PlayerBullet" type="RigidBody2D" groups=[
 "PlayerBullet",
 ]]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 34
+collision_mask = 32
 mass = 0.00102041
 gravity_scale = 0.0
 contacts_reported = 1

@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Controller.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/NinePatch.png" type="Texture" id=2]
 [ext_resource path="res://Fonts/FontMain.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Sprites/Healthbar.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Healthbar_front.png" type="Texture" id=4]
+[ext_resource path="res://Audio/battle_distorted.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/Healthbar_back.png" type="Texture" id=6]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0, 1, 0, 1 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 104 )
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0, 0, 0, 1 )
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 184, 8 )
 
 [node name="Controller" type="Node"]
 script = ExtResource( 1 )
@@ -20,7 +22,7 @@ layer = 2
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
 margin_left = 5.0
 margin_top = 144.0
-margin_right = 91.0
+margin_right = 70.0
 margin_bottom = 175.0
 texture = ExtResource( 2 )
 patch_margin_left = 2
@@ -37,28 +39,76 @@ margin_top = 146.0
 margin_right = 48.0
 margin_bottom = 160.0
 custom_fonts/font = ExtResource( 3 )
-text = "Healed: n"
+text = "Healed: 10"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer"]
-margin_left = 9.0
-margin_top = 156.0
-margin_right = 63.0
-margin_bottom = 168.0
-custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
+[node name="Health" type="TextureProgress" parent="CanvasLayer"]
+margin_left = 13.0
+margin_top = 159.0
+margin_right = 62.0
+margin_bottom = 169.0
 max_value = 5.0
 value = 5.0
-percent_visible = false
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Health2" type="Sprite" parent="CanvasLayer"]
-position = Vector2( 36, 162 )
-scale = Vector2( 2.57143, 2 )
-texture = ExtResource( 4 )
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer2"]
+visible = false
+margin_left = 245.0
+margin_top = 144.0
+margin_right = 310.0
+margin_bottom = 175.0
+texture = ExtResource( 2 )
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Label" parent="CanvasLayer2"]
+visible = false
+margin_left = 250.0
+margin_top = 154.0
+margin_right = 309.0
+margin_bottom = 168.0
+custom_fonts/font = ExtResource( 3 )
+text = "Healed: 10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TimerWait" type="Timer" parent="."]
+
+[node name="MusicDistorted" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -12.0
+
+[node name="BallWall" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallWall"]
+position = Vector2( -10, 88 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BallWall"]
+position = Vector2( 330, 88 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BallWall"]
+position = Vector2( 160, 200 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BallWall"]
+position = Vector2( 160, -8 )
+shape = SubResource( 2 )

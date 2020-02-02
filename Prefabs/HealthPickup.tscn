@@ -4,16 +4,16 @@
 [ext_resource path="res://Scripts/HealthPickup.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Health_Orb.png" type="Texture" id=3]
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 1, 0, 0.4, 1, 1, 0, 0.4, 0 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=8]
+[sub_resource type="ParticlesMaterial" id=4]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -21,7 +21,7 @@ initial_velocity = 50.0
 initial_velocity_random = 0.5
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-color_ramp = SubResource( 7 )
+color_ramp = SubResource( 3 )
 
 [sub_resource type="Animation" id=5]
 resource_name = "Idle"
@@ -52,14 +52,14 @@ texture = ExtResource( 3 )
 hframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="PartsHeal" type="Particles2D" parent="."]
 emitting = false
 amount = 16
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 8 )
+process_material = SubResource( 4 )
 
 [node name="SoundHeal" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )

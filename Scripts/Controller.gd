@@ -5,9 +5,14 @@ var num_enemies_healed: int = 0
 
 var rooms_cleared := []
 var enemies_healed := {}
+var health_collected := {}
+
+var speedrun_timer := false
+var timer: float = 0
 
 onready var text_healed := $CanvasLayer/Label as Label
-onready var healthbar := $CanvasLayer/Health as ProgressBar
+onready var healthbar := $CanvasLayer/Health as TextureProgress
+onready var timer_text := $CanvasLayer2/Timer as Label
 
 
 func _ready():
@@ -15,6 +20,11 @@ func _ready():
 
 
 func _process(delta):
+	if speedrun_timer:
+		timer += delta
+	
+	timer_text.set_text(str(floor(timer / 60)).pad_zeros(2) + ":" + str(stepify(timer, 0.001)).pad_zeros(2))
+	
 	text_healed.set_text("Healed: %d" % num_enemies_healed)
 	healthbar.set_value(Player.get_health())
 	
@@ -26,6 +36,14 @@ func set_current_enemy_requirement(value: int):
 	current_enemy_requirement = value
 	
 	
+func set_speedrun_timer(value: bool):
+	speedrun_timer = value
+	
+	
+func start_timer():
+	timer = 0
+	
+	
 func add_enemy_healed():
 	num_enemies_healed += 1
 	
@@ -33,6 +51,13 @@ func add_enemy_healed():
 func show_ui(show: bool):
 	for child in $CanvasLayer.get_children():
 		child.set_visible(show)
+	if speedrun_timer:
+		for child in $CanvasLayer2.get_children():
+			child.set_visible(show)
+		
+		
+func play_music():
+	$MusicDistorted.play()
 
 
 func after_load():

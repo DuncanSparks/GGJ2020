@@ -135,6 +135,8 @@ func move_along_path(distance: float):
 func heal(room_start: bool = false):
 	$PartsDust.set_emitting(false)
 	healed = true
+	set_collision_mask_bit(4, false)
+	$CollisionShape2D.call_deferred("set_disabled", true)
 	if not room_start:
 		$SoundHeal.play()
 		Controller.add_enemy_healed()

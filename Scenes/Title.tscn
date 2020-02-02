@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Sprites/UI/Title.png" type="Texture" id=1]
 [ext_resource path="res://Audio/title_pure.wav" type="AudioStream" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Audio/Title Click.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Fonts/Kestoy Selfie.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Fonts/superstar_memesbruh03.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Audio/Kick.ogg" type="AudioStream" id=8]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -30,6 +31,9 @@ color = Color( 0.427451, 0.427451, 0.427451, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
+[sub_resource type="DynamicFont" id=14]
+font_data = ExtResource( 6 )
+
 [sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Fade:color")
@@ -44,7 +48,7 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=8]
 resource_name = "Fadein Credits"
 tracks/0/type = "value"
 tracks/0/path = NodePath("CreditsHeader:modulate")
@@ -119,7 +123,7 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Fade:color")
 tracks/0/interp = 1
@@ -145,7 +149,7 @@ tracks/1/keys = {
 "values": [ -8.0, -80.0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=10]
 resource_name = "Fadeout Credits"
 tracks/0/type = "value"
 tracks/0/path = NodePath("CreditsHeader:modulate")
@@ -220,7 +224,7 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=11]
 resource_name = "Fadeout Keep Music"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Fade:color")
@@ -235,11 +239,11 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=12]
 size = 36
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=13]
 font_data = ExtResource( 7 )
 
 [node name="Scene" type="Node2D"]
@@ -325,8 +329,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ButtonSpeedrunTimer" type="Button" parent="."]
+margin_left = 40.0
+margin_top = 154.0
+margin_right = 150.828
+margin_bottom = 178.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color_disabled = Color( 0.494118, 0.494118, 0.494118, 1 )
+custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+text = "Speedrun Timer: Off"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="SoundClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+pitch_scale = 1.3
+
+[node name="SoundClick2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 pitch_scale = 1.3
 
 [node name="Fade" type="ColorRect" parent="."]
@@ -343,10 +370,10 @@ __meta__ = {
 autoplay = "Fadein"
 playback_speed = 0.5
 anims/Fadein = SubResource( 7 )
-"anims/Fadein Credits" = SubResource( 11 )
-anims/Fadeout = SubResource( 8 )
-"anims/Fadeout Credits" = SubResource( 13 )
-"anims/Fadeout Keep Music" = SubResource( 12 )
+"anims/Fadein Credits" = SubResource( 8 )
+anims/Fadeout = SubResource( 9 )
+"anims/Fadeout Credits" = SubResource( 10 )
+"anims/Fadeout Keep Music" = SubResource( 11 )
 
 [node name="CreditsHeader" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -354,10 +381,11 @@ margin_left = 115.0
 margin_top = 8.0
 margin_right = 205.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 12 )
 text = "Credits"
 align = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -367,12 +395,13 @@ margin_left = 2.0
 margin_top = 48.0
 margin_right = 163.0
 margin_bottom = 102.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 text = "Duncan Sparks
 Programming, Writing,
 Art, Sound"
 align = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -382,12 +411,13 @@ margin_left = 80.0
 margin_top = 112.0
 margin_right = 241.0
 margin_bottom = 166.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 text = "Ken Zhou
 Production, Music,
 Design, Programming"
 align = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -397,12 +427,13 @@ margin_left = 168.0
 margin_top = 48.0
 margin_right = 329.0
 margin_bottom = 102.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 text = "Jeremy Anderson
 Design, Music, Art,
 Programming"
 align = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -414,6 +445,7 @@ margin_bottom = 104.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0.352941 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -425,8 +457,10 @@ margin_bottom = 168.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0.352941 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="ButtonStart" to="." method="_on_ButtonStart_pressed"]
 [connection signal="pressed" from="ButtonCredits" to="." method="_on_ButtonCredits_pressed"]
 [connection signal="pressed" from="ButtonExit" to="." method="_on_ButtonExit_pressed"]
+[connection signal="pressed" from="ButtonSpeedrunTimer" to="." method="_on_ButtonSpeedrunTimer_pressed"]
