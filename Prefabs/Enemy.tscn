@@ -62,11 +62,6 @@ animations = [ {
 "name": "down_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "up_walk",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 19 ), ExtResource( 5 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 21 ) ],
 "loop": true,
 "name": "right_walk",
@@ -76,6 +71,11 @@ animations = [ {
 "loop": true,
 "name": "down",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "up_walk",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 27 ) ],
 "loop": true,

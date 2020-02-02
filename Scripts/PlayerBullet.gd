@@ -49,6 +49,9 @@ func _on_TimerPickUp_timeout():
 func _on_PlayerBullet_body_entered(body):
 	if can_hit and body.is_in_group("Enemy") and not body.is_healed():
 		body.hit()
+		
+	if can_hit and body.is_in_group("Fountain") and not body.is_purified():
+		body.purify()
 
 
 func _on_TimerStopHitting_timeout():

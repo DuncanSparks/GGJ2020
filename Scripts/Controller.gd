@@ -6,6 +6,7 @@ var num_enemies_healed: int = 0
 var rooms_cleared := []
 var enemies_healed := {}
 var health_collected := {}
+var fountains_purified := {}
 
 var speedrun_timer := false
 var timer: float = 0
@@ -44,6 +45,7 @@ func reset():
 	rooms_cleared.clear()
 	enemies_healed.clear()
 	health_collected.clear()
+	fountains_purified.clear()
 	num_enemies_healed = 0
 	timer = 0
 	
