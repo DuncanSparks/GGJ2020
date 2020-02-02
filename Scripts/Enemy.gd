@@ -17,6 +17,7 @@ var in_area := false
 
 export(bool) var follow := true
 export(bool) var shoot := true
+export(NodePath) var navigator
 
 export(String, MULTILINE) var healed_text
 
@@ -26,6 +27,7 @@ onready var timer := $Timer as Timer
 onready var spr := $Sprite as AnimatedSprite
 onready var text := $Text as RichTextLabel
 onready var timer_shoot := $TimerShoot as Timer
+onready var nav_node: Navigation2D = get_node(navigator) if navigator != null else null
 
 #onready var Player = get_tree().get_current_scene().get_node("Player")
 
@@ -53,19 +55,24 @@ func _process(delta):
 		text.visible_characters += 1
 	
 	if follow and not healed:
-		if Player.position.x < position.x:
-			velocity.x = -1
-			face = Direction.Left
-		else:
-			velocity.x = 1
-			face = Direction.Right
+#		if Player.position.x < position.x:
+#			velocity.x = -1
+#			face = Direction.Left
+#		else:
+#			velocity.x = 1
+#			face = Direction.Right
+#
+#		if Player.position.y < position.y:
+#			velocity.y = -1
+#			#face = Direction.Up
+#		else:
+#			velocity.y = 1
+#			#face = Direction.Down
 		
-		if Player.position.y < position.y:
-			velocity.y = -1
-			#face = Direction.Up
-		else:
-			velocity.y = 1
-			#face = Direction.Down
+		var path := nav_node.get_simple_path(get_position(), Player.get_position())
+		var angle = get_angle_to(path[0])
+		velocity = Vector2(cos(angle), sin(angle))
+		
 			
 		walking = velocity != Vector2.ZERO
 		
@@ -76,6 +83,9 @@ func _process(delta):
 	if healed:
 		velocity = Vector2.ZERO
 		spr.play("healed")
+
+	if follow and nav_node != null:
+		print()
 
 
 func _physics_process(delta):
