@@ -1,10 +1,13 @@
 extends Node2D
 
 signal room_is_cleared
+signal fountains_cleared
 
 func _ready():
 	if filename in Controller.rooms_cleared:
 		emit_signal("room_is_cleared")
+	if Controller.fountains_purified.size() >= 5:
+		emit_signal("fountains_cleared")
 
 
 func clear_room():

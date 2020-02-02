@@ -31,6 +31,10 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("sys_fullscreen"):
 		OS.set_window_fullscreen(not OS.is_window_fullscreen())
+		
+	if Input.is_action_just_pressed("debug"):
+		for i in range(5):
+			fountains_purified[str(i)] = true
 
 
 func set_current_enemy_requirement(value: int):
