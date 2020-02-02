@@ -74,6 +74,7 @@ func damage(amount: int):
 		hide()
 		lock_movement = true
 		Controller.show_ui(false)
+		Controller.stop_music()
 		get_tree().change_scene("res://Scenes/GameOver.tscn")
 	
 	

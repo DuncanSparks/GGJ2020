@@ -31,10 +31,10 @@ color = Color( 0.427451, 0.427451, 0.427451, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 6 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Fade:color")
 tracks/0/interp = 1
@@ -48,8 +48,7 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "Fadein Credits"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("CreditsHeader:modulate")
 tracks/0/interp = 1
@@ -123,7 +122,7 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Fade:color")
 tracks/0/interp = 1
@@ -149,8 +148,7 @@ tracks/1/keys = {
 "values": [ -8.0, -80.0 ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "Fadeout Credits"
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("CreditsHeader:modulate")
 tracks/0/interp = 1
@@ -224,8 +222,7 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "Fadeout Keep Music"
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Fade:color")
 tracks/0/interp = 1
@@ -239,11 +236,11 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 36
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=14]
 font_data = ExtResource( 7 )
 
 [node name="Scene" type="Node2D"]
@@ -339,11 +336,11 @@ custom_styles/pressed = SubResource( 3 )
 custom_styles/focus = SubResource( 4 )
 custom_styles/disabled = SubResource( 5 )
 custom_styles/normal = SubResource( 6 )
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color_disabled = Color( 0.494118, 0.494118, 0.494118, 1 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-text = "Speedrun Timer: Off"
+text = "Speedrun Timer - Off"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -369,11 +366,11 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Fadein"
 playback_speed = 0.5
-anims/Fadein = SubResource( 7 )
-"anims/Fadein Credits" = SubResource( 8 )
-anims/Fadeout = SubResource( 9 )
-"anims/Fadeout Credits" = SubResource( 10 )
-"anims/Fadeout Keep Music" = SubResource( 11 )
+anims/Fadein = SubResource( 8 )
+"anims/Fadein Credits" = SubResource( 9 )
+anims/Fadeout = SubResource( 10 )
+"anims/Fadeout Credits" = SubResource( 11 )
+"anims/Fadeout Keep Music" = SubResource( 12 )
 
 [node name="CreditsHeader" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -381,7 +378,7 @@ margin_left = 115.0
 margin_top = 8.0
 margin_right = 205.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Credits"
 align = 1
 __meta__ = {
@@ -395,7 +392,7 @@ margin_left = 2.0
 margin_top = 48.0
 margin_right = 163.0
 margin_bottom = 102.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 text = "Duncan Sparks
 Programming, Writing,
 Art, Sound"
@@ -411,10 +408,10 @@ margin_left = 80.0
 margin_top = 112.0
 margin_right = 241.0
 margin_bottom = 166.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 text = "Ken Zhou
 Production, Music,
-Design, Programming"
+Design, Programming, Art"
 align = 1
 __meta__ = {
 "_edit_lock_": true,
@@ -427,7 +424,7 @@ margin_left = 168.0
 margin_top = 48.0
 margin_right = 329.0
 margin_bottom = 102.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 text = "Jeremy Anderson
 Design, Music, Art,
 Programming"

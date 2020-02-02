@@ -23,7 +23,7 @@ func _on_ButtonStart_pressed():
 	Controller.show_ui(true)
 	Player.show()
 	Controller.play_music()
-	Controller.start_timer()
+	Controller.reset()
 
 
 func _on_ButtonCredits_pressed():
@@ -53,4 +53,4 @@ func set_buttons_active(active: bool):
 func _on_ButtonSpeedrunTimer_pressed():
 	$SoundClick2.play()
 	Controller.set_speedrun_timer(not Controller.speedrun_timer)
-	$ButtonSpeedrunTimer.set_text("Speedrun Timer On" if Controller.speedrun_timer else "Speedrun Timer Off")
+	$ButtonSpeedrunTimer.set_text("Speedrun Timer - On" if Controller.speedrun_timer else "Speedrun Timer - Off")

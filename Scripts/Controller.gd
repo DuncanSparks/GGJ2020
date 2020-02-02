@@ -40,7 +40,10 @@ func set_speedrun_timer(value: bool):
 	speedrun_timer = value
 	
 	
-func start_timer():
+func reset():
+	rooms_cleared.clear()
+	enemies_healed.clear()
+	health_collected.clear()
 	timer = 0
 	
 	
@@ -58,6 +61,10 @@ func show_ui(show: bool):
 		
 func play_music():
 	$MusicDistorted.play()
+
+
+func stop_music():
+	$MusicDistorted.stop()
 
 
 func after_load():
