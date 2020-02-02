@@ -91,6 +91,10 @@ func set_loading(value: bool):
 	
 func get_health() -> int:
 	return health
+	
+	
+func set_lock_movement(value: bool):
+	lock_movement = value
 
 # ======================================================
 

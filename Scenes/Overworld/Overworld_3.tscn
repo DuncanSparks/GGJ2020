@@ -44,6 +44,7 @@ __meta__ = {
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 248, 40 )
+speed = 30.0
 fast_fire = true
 navigator = NodePath("../Navigation2D")
 healed_text = "Has our kingdom fallen?"

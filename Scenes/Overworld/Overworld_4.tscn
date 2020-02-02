@@ -61,7 +61,7 @@ healed_text = "I'm sorry I attacked you."
 position = Vector2( 116.955, 64.5688 )
 speed = 40.0
 navigator = NodePath("../Navigation2D")
-healed_text = "Sorry for attacking."
+healed_text = "What has happened?"
 
 [node name="LoadingZone" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 184 )
