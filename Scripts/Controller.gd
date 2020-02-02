@@ -11,12 +11,15 @@ var fountains_purified := {}
 var speedrun_timer := false
 var timer: float = 0
 
+const sound_oneshot_ref := preload("res://Prefabs/SoundOneShot.tscn")
+
 onready var text_healed := $CanvasLayer/Label as Label
 onready var healthbar := $CanvasLayer/Health as TextureProgress
 onready var timer_text := $CanvasLayer2/Timer as Label
 
 
 func _ready():
+	randomize()
 	OS.center_window()
 
 
@@ -76,6 +79,14 @@ func music_is_playing() -> bool:
 
 func stop_music():
 	$MusicDistorted.stop()
+	
+	
+func play_sound_oneshot(sound: AudioStream, volume: int = 0):
+	var sb := sound_oneshot_ref.instance() as AudioStreamPlayer
+	sb.set_stream(sound)
+	sb.set_volume_db(volume)
+	get_tree().get_root().add_child(sb)
+	sb.play()
 
 
 func after_load():

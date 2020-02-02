@@ -30,6 +30,8 @@ export(String, MULTILINE) var healed_text
 const bullet_ref := preload("res://Prefabs/Bullet.tscn")
 const ground_attack_ref := preload("res://Prefabs/GroundAttack.tscn")
 
+const parts_healed := preload("res://Prefabs/Particles/PartsHealed.tscn")
+
 onready var timer := $Timer as Timer
 onready var timer_gt := $TimerGroundAttack as Timer
 onready var spr := $Sprite as AnimatedSprite
@@ -122,7 +124,11 @@ func _physics_process(delta):
 	
 func hit():
 	$SoundHit.play()
-	$PartsHealed.set_emitting(true)
+	#$PartsHealed.set_emitting(true)
+	var parts := parts_healed.instance()
+	parts.set_position(get_position())
+	get_tree().get_current_scene().add_child(parts)
+	parts.set_emitting(true)
 	health -= 1
 	if health <= 0:
 		heal()

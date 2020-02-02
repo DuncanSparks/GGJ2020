@@ -22,11 +22,6 @@ func _process(delta):
 	set_z_index(int(get_position().y))
 
 
-func damage(body):
-	if can_hit and body.is_in_group("enemy"):
-		body.health -= damage
-
-
 func _on_AreaPickUp_body_entered(body: Node):
 	if body.is_in_group("Player") and can_pick_up:
 		$SoundPickUp.play()
