@@ -17,7 +17,9 @@ var in_area := false
 
 export(bool) var follow := true
 export(bool) var shoot := true
-export(NodePath) var navigator
+#export(bool) var bullet_goes_through_walls := false
+export(bool) var fast_fire := false
+export(NodePath) var navigator = null
 
 export(bool) var ground_attack := false
 
@@ -32,19 +34,22 @@ onready var timer_gt := $TimerGroundAttack as Timer
 onready var spr := $Sprite as AnimatedSprite
 onready var text := $Text as RichTextLabel
 onready var timer_shoot := $TimerShoot as Timer
-onready var nav_node: Navigation2D = get_node(navigator) if navigator != null else null
+var nav_node: Navigation2D = null
 
 #onready var Player = get_tree().get_current_scene().get_node("Player")
 
 # ======================================================
 
 func _ready():
+	if navigator != null:
+		nav_node = get_node(navigator) as Navigation2D
+		
 	face = Direction.Down
 	
 	timer.set_wait_time(rand_range(2, 4))
 	set_text(healed_text)
 	if shoot:
-		timer_shoot.set_wait_time(rand_range(1.5, 3))
+		timer_shoot.set_wait_time(rand_range(0.8, 1.5) if fast_fire else rand_range(1.5, 3))
 		timer_shoot.start()
 	
 	var id: String = get_tree().get_current_scene().filename + "--" + get_path()
@@ -202,7 +207,7 @@ func _on_TimerShoot_timeout():
 		bullet.set_position(get_position())
 		bullet.set_global_rotation(get_angle_to(Player.position))
 		get_tree().get_current_scene().add_child(bullet)
-		timer_shoot.set_wait_time(rand_range(1.5, 3))
+		timer_shoot.set_wait_time(rand_range(0.8, 1.5) if fast_fire else rand_range(1.5, 3))
 
 
 func _on_TimerNav_timeout():
