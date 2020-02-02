@@ -5,10 +5,10 @@
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Room.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 8 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 8 )
 
 [sub_resource type="NavigationPolygon" id=3]
@@ -60,7 +60,7 @@ position = Vector2( 160, 0 )
 target_scene = "res://Scenes/Overworld/Overworld_6.tscn"
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="LoadingZone2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 184 )
@@ -68,25 +68,19 @@ target_scene = "res://Scenes/Overworld/Overworld_8.tscn"
 direction = 1
 
 [node name="CollisionShape2D" parent="LoadingZone2" index="0"]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 40, 152 )
-health = 1
 navigator = NodePath("../Navigation2D")
-ground_attack = true
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 152 )
-health = 1
 navigator = NodePath("../Navigation2D")
-ground_attack = true
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 104 )
-health = 1
 navigator = NodePath("../Navigation2D")
-ground_attack = true
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 

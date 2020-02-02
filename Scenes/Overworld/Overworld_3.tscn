@@ -5,12 +5,12 @@
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Room.gd" type="Script" id=5]
 
-[sub_resource type="NavigationPolygon" id=2]
+[sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 296, 40, 296, 152, 24, 152, 24, 40 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 outlines = [ PoolVector2Array( 24, 40, 24, 152, 296, 152, 296, 40 ) ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 8 )
 
 [node name="Scene" type="Node2D"]
@@ -31,7 +31,7 @@ __meta__ = {
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-navpoly = SubResource( 2 )
+navpoly = SubResource( 1 )
 
 [node name="Barrier" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -44,7 +44,6 @@ __meta__ = {
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 248, 40 )
-health = 1
 fast_fire = true
 navigator = NodePath("../Navigation2D")
 healed_text = "Has our kingdom fallen?"
@@ -55,14 +54,14 @@ target_scene = "res://Scenes/Overworld/Overworld_2.tscn"
 direction = 1
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="LoadingZone2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 0 )
 target_scene = "res://Scenes/Overworld/Overworld_4.tscn"
 
 [node name="CollisionShape2D" parent="LoadingZone2" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="room_is_cleared" from="." to="Barrier" method="queue_free"]
 [connection signal="healed" from="Enemy" to="." method="clear_room"]
 

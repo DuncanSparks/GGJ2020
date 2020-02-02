@@ -4,10 +4,10 @@
 [ext_resource path="res://Prefabs/LoadingZone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Room.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 32 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 8 )
 
 [node name="Scene" type="Node2D"]
@@ -31,7 +31,7 @@ target_scene = "res://Scenes/Overworld/Overworld_4.tscn"
 direction = 3
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="LoadingZone2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 184 )
@@ -39,7 +39,7 @@ target_scene = "res://Scenes/Overworld/Overworld_6.tscn"
 direction = 1
 
 [node name="CollisionShape2D" parent="LoadingZone2" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [editable path="LoadingZone"]
 

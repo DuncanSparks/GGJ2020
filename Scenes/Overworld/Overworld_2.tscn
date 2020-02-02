@@ -47,7 +47,6 @@ text_to_display = "Use your orb to heal the afflicted"
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 88, 64 )
-health = 1
 follow = false
 shoot = false
 healed_text = "Thank you..."

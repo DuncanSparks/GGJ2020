@@ -71,17 +71,14 @@ shape = SubResource( 3 )
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 48, 40 )
-health = 1
 navigator = NodePath("../Navigation2D")
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 40 )
-health = 1
 navigator = NodePath("../Navigation2D")
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 144 )
-health = 1
 navigator = NodePath("../Navigation2D")
 
 [node name="Navigation2D" type="Navigation2D" parent="."]

@@ -54,14 +54,12 @@ navpoly = SubResource( 1 )
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 200, 64 )
 speed = 40.0
-health = 1
 navigator = NodePath("../Navigation2D")
 healed_text = "I'm sorry I attacked you."
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 116.955, 64.5688 )
 speed = 40.0
-health = 1
 navigator = NodePath("../Navigation2D")
 healed_text = "Sorry for attacking."
 
@@ -83,8 +81,8 @@ shape = SubResource( 3 )
 
 [node name="LoadingZone3" parent="." instance=ExtResource( 2 )]
 position = Vector2( 320, 96 )
-target_scene = "res://Scenes/Overworld/Overworld_3.tscn"
-direction = 2
+target_scene = "res://Scenes/Overworld/Overworld_18.tscn"
+direction = 3
 
 [node name="CollisionShape2D" parent="LoadingZone3" index="0"]
 shape = SubResource( 4 )

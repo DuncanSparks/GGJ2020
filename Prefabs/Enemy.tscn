@@ -57,24 +57,24 @@ animations = [ {
 "name": "left_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 5 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "right_walk",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "down",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "down_walk",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "up_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 19 ), ExtResource( 5 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 21 ) ],
 "loop": true,
-"name": "down_walk",
+"name": "right_walk",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 27 ) ],
@@ -84,7 +84,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 4.5, 3 )
+extents = Vector2( 4.5, 6 )
 
 [sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
@@ -125,24 +125,27 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+health = 1
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
+position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 animation = "healed"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 11 )
+position = Vector2( 0.5, 0 )
 shape = SubResource( 3 )
 
 [node name="PartsDust" type="Particles2D" parent="."]
-position = Vector2( 1, 0 )
+position = Vector2( 1, -8 )
 amount = 12
 lifetime = 0.15
 explosiveness = 1.0
 process_material = SubResource( 4 )
 
 [node name="PartsHealed" type="Particles2D" parent="."]
+position = Vector2( 0, -8 )
 emitting = false
 amount = 32
 one_shot = true
