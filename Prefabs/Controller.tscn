@@ -92,9 +92,10 @@ __meta__ = {
 [node name="MusicDistorted" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -12.0
+bus = "Music"
 
 [node name="BallWall" type="StaticBody2D" parent="."]
-collision_layer = 32
+collision_layer = 0
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallWall"]
