@@ -29,3 +29,11 @@ func _on_TimerStopHitting_timeout():
 func _on_BossBullet_body_entered(body):
 	if can_hit and body.is_in_group("Player") and not Player.is_in_iframes():
 		Player.damage(2)
+
+
+func _on_TimerExplode_timeout():
+	$AnimationPlayer2.play("Explode")
+
+
+func _on_AnimationPlayer2_animation_finished(anim_name):
+	queue_free()

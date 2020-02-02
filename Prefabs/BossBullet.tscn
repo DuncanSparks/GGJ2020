@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/BossBullet.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Orb.png" type="Texture" id=2]
 [ext_resource path="res://Audio/Pickup.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Audio/GroundAttack.ogg" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -56,13 +57,13 @@ void fragment() {
 shader = SubResource( 2 )
 shader_param/shift_amount = 0.666
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=6]
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
 spread = 180.0
@@ -71,9 +72,9 @@ initial_velocity = 50.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 5 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -87,6 +88,33 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 1 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Explode"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 2, 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="BossBullet" type="RigidBody2D" groups=[
@@ -118,23 +146,33 @@ hframes = 3
 [node name="PartsIdle" type="Particles2D" parent="."]
 amount = 16
 local_coords = false
-process_material = SubResource( 7 )
+process_material = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/Idle = SubResource( 8 )
+anims/Idle = SubResource( 7 )
 
 [node name="SoundPickUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -10.0
 
+[node name="SoundExplode" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+pitch_scale = 0.8
+
 [node name="TimerStopHitting" type="Timer" parent="."]
 wait_time = 1.1
 one_shot = true
 
-[node name="TimerDestroy" type="Timer" parent="."]
-wait_time = 1.2
+[node name="TimerExplode" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
+autostart = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/Explode = SubResource( 8 )
 [connection signal="body_entered" from="." to="." method="_on_BossBullet_body_entered"]
 [connection signal="timeout" from="TimerStopHitting" to="." method="_on_TimerStopHitting_timeout"]
-[connection signal="timeout" from="TimerDestroy" to="." method="queue_free"]
+[connection signal="timeout" from="TimerExplode" to="." method="_on_TimerExplode_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_AnimationPlayer2_animation_finished"]

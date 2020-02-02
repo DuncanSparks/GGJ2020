@@ -47,46 +47,38 @@ func is_healed():
 	
 	
 func attack():
-	#var num: int = int(round(rand_range(0, 2) if phase == 0 else rand_range(0, 3) if phase == 1 else rand_range(0, 4)))
-	#var num := 3
-	#var num: int = int(round(rand_range(0, 2)))
-	var num := 1
-	match num:
-		0: # Bullets
-			for i in range(5):
-				Controller.play_sound_oneshot(sound_bullet, 6)
-				var bullet := bullet_ref.instance()
-				bullet.set_position(get_position())
-				bullet.set_global_rotation(get_angle_to(Player.position))
-				get_tree().get_current_scene().add_child(bullet)
-				
-				yield(wait(rand_range(0.35, 0.55)), "timeout")
-		#1: # Terrain
-		#	pass
-		2: # Evil orb
-			Controller.play_sound_oneshot(sound_kick)
-			var inst := ball_ref.instance()
-			inst.set_position(get_position())
-			inst.set_global_rotation(get_position().direction_to(Player.get_position()).angle())
-			get_tree().get_current_scene().add_child(inst)
-		1: # Spawn enemies
-			Controller.play_sound_oneshot(sound_teleport, 4)
-			for i in range(int(round(rand_range(1, 3)))):
-				var pos := Vector2(rand_range(30, 290), rand_range(30, 150))
-				
-				var parts := parts_teleport.instance()
-				parts.set_position(pos)
-				parts.set_emitting(true)
-				get_tree().get_current_scene().add_child(parts)
-				
-				var enemy := enemy_ref.instance()
-				enemy.set_position(pos)
-				#enemy.disappear = true
-				enemy.speed = rand_range(40, 60)
-				enemy.navigator = navigator
-				get_tree().get_current_scene().add_child(enemy)
-		4: # 
-			pass
+	var num: int = int(round(rand_range(0, 4)))
+	if num == 0 or num == 3: # Bullets
+		for i in range(5):
+			Controller.play_sound_oneshot(sound_bullet, 6)
+			var bullet := bullet_ref.instance()
+			bullet.set_position(get_position())
+			bullet.set_global_rotation(get_angle_to(Player.position))
+			get_tree().get_current_scene().add_child(bullet)
+			
+			yield(wait(rand_range(0.35, 0.55)), "timeout")
+	elif num == 1: # Spawn enemies
+		Controller.play_sound_oneshot(sound_teleport, 4)
+		for i in range(int(round(rand_range(1, 2)))):
+			var pos := Vector2(rand_range(30, 290), rand_range(30, 150))
+			
+			var parts := parts_teleport.instance()
+			parts.set_position(pos)
+			parts.set_emitting(true)
+			get_tree().get_current_scene().add_child(parts)
+			
+			var enemy := enemy_ref.instance()
+			enemy.set_position(pos)
+			#enemy.disappear = true
+			enemy.speed = rand_range(40, 60)
+			enemy.navigator = navigator
+			get_tree().get_current_scene().add_child(enemy)
+	else: # Evil orb
+		Controller.play_sound_oneshot(sound_kick)
+		var inst := ball_ref.instance()
+		inst.set_position(get_position())
+		inst.set_global_rotation(get_position().direction_to(Player.get_position()).angle())
+		get_tree().get_current_scene().add_child(inst)
 			
 	timer_teleport.set_wait_time(rand_range(0.5, 1))
 	timer_teleport.start()

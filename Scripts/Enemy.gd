@@ -85,29 +85,7 @@ func _process(delta):
 		text.visible_characters += 1
 	
 	if follow and not healed:
-#		if Player.position.x < position.x:
-#			velocity.x = -1
-#			face = Direction.Left
-#		else:
-#			velocity.x = 1
-#			face = Direction.Right
-#
-#		if Player.position.y < position.y:
-#			velocity.y = -1
-#			#face = Direction.Up
-#		else:
-#			velocity.y = 1
-#			#face = Direction.Down
-
-		
-		move_along_path(speed * delta)
-		
-#		nav_path = nav_node.get_simple_path(get_global_position() + Vector2(0, 4), Player.get_global_position(), false)
-#		var angle = get_angle_to(nav_path[1])
-#		#var angle = get_angle_to(nav_node.get_closest_point(Player.get_global_position()))
-#		velocity = Vector2(cos(angle), sin(angle))
-		
-			
+		move_along_path(speed * delta)		
 		walking = velocity != Vector2.ZERO
 		
 	if not healed:
