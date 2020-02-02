@@ -70,7 +70,8 @@ func _process(delta):
 #			#face = Direction.Down
 		
 		var path := nav_node.get_simple_path(get_position(), Player.get_position())
-		var angle = get_angle_to(path[0])
+		print(path)
+		var angle = get_angle_to(path[1])
 		velocity = Vector2(cos(angle), sin(angle))
 		
 			
