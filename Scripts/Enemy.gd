@@ -23,6 +23,8 @@ export(NodePath) var navigator = null
 
 export(bool) var ground_attack := false
 
+var disappear := false
+
 var nav_path: PoolVector2Array = []
 
 export(String, MULTILINE) var healed_text
@@ -45,6 +47,9 @@ var nav_node: Navigation2D = null
 # ======================================================
 
 func _ready():
+	if get_tree().get_current_scene().filename == "res://Scenes/Castle/Castle_Boss.tscn":
+		disappear = true
+		
 	if navigator != null:
 		nav_node = get_node(navigator) as Navigation2D
 		
@@ -124,7 +129,6 @@ func _physics_process(delta):
 	
 func hit():
 	$SoundHit.play()
-	#$PartsHealed.set_emitting(true)
 	var parts := parts_healed.instance()
 	parts.set_position(get_position())
 	get_tree().get_current_scene().add_child(parts)
@@ -154,8 +158,12 @@ func heal(room_start: bool = false):
 	$CollisionShape2D.call_deferred("set_disabled", true)
 	if not room_start:
 		$SoundHeal.play()
-		Controller.add_enemy_healed()
-		Controller.enemies_healed[get_tree().get_current_scene().filename + "--" + get_path()] = get_position()
+		if not disappear:
+			Controller.add_enemy_healed()
+			Controller.enemies_healed[get_tree().get_current_scene().filename + "--" + get_path()] = get_position()
+		else:
+			$AnimationPlayer.play("Fade")
+			$TimerDisappear.start()
 		emit_signal("healed")
 
 

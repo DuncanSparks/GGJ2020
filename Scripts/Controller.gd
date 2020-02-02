@@ -11,6 +11,8 @@ var fountains_purified := {}
 var speedrun_timer := false
 var timer: float = 0
 
+var quit := false
+
 const sound_oneshot_ref := preload("res://Prefabs/SoundOneShot.tscn")
 
 onready var text_healed := $CanvasLayer/Label as Label
@@ -21,6 +23,8 @@ onready var timer_text := $CanvasLayer2/Timer as Label
 func _ready():
 	randomize()
 	OS.center_window()
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 func _process(delta):
@@ -34,6 +38,14 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("sys_fullscreen"):
 		OS.set_window_fullscreen(not OS.is_window_fullscreen())
+		
+	if Input.is_action_just_pressed("sys_quit"):
+		if not quit:
+			quit = true
+			$CanvasLayer3/Label.show()
+			$TimerQuit.start()
+		else:
+			get_tree().quit()
 		
 	if Input.is_action_just_pressed("debug"):
 		for i in range(5):
@@ -94,3 +106,8 @@ func after_load():
 	$TimerWait.start()
 	yield($TimerWait, "timeout")
 	Player.set_loading(false)
+
+
+func _on_TimerQuit_timeout():
+	quit = false
+	$CanvasLayer3/Label.hide()

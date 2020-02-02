@@ -267,6 +267,7 @@ process_material = SubResource( 1 )
 stream = ExtResource( 2 )
 volume_db = -8.0
 autoplay = true
+bus = "Music"
 
 [node name="ButtonStart" type="Button" parent="."]
 margin_left = 13.0
