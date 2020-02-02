@@ -28,12 +28,16 @@ var nav_path: PoolVector2Array = []
 export(String, MULTILINE) var healed_text
 
 const bullet_ref := preload("res://Prefabs/Bullet.tscn")
+const ground_attack_ref := preload("res://Prefabs/GroundAttack.tscn")
+
+const parts_healed := preload("res://Prefabs/Particles/PartsHealed.tscn")
 
 onready var timer := $Timer as Timer
 onready var timer_gt := $TimerGroundAttack as Timer
 onready var spr := $Sprite as AnimatedSprite
 onready var text := $Text as RichTextLabel
 onready var timer_shoot := $TimerShoot as Timer
+onready var timer_ground_attack := $TimerGroundAttack as Timer
 var nav_node: Navigation2D = null
 
 #onready var Player = get_tree().get_current_scene().get_node("Player")
@@ -51,6 +55,9 @@ func _ready():
 	if shoot:
 		timer_shoot.set_wait_time(rand_range(0.8, 1.5) if fast_fire else rand_range(1.5, 3))
 		timer_shoot.start()
+	elif ground_attack:
+		timer_ground_attack.set_wait_time(rand_range(2, 4))
+		timer_ground_attack.start()
 	
 	var id: String = get_tree().get_current_scene().filename + "--" + get_path()
 	if id in Controller.enemies_healed:
@@ -62,7 +69,8 @@ func _ready():
 		$TimerNav.start()
 		
 	if ground_attack:
-		spr.get_material().set_shader_param("shift_amount", 0.333)
+		spr.set_material(spr.get_material().duplicate())
+		spr.get_material().set_shader_param("shift_amount", 0.888)
 	
 	
 func _process(delta):
@@ -116,7 +124,11 @@ func _physics_process(delta):
 	
 func hit():
 	$SoundHit.play()
-	$PartsHealed.set_emitting(true)
+	#$PartsHealed.set_emitting(true)
+	var parts := parts_healed.instance()
+	parts.set_position(get_position())
+	get_tree().get_current_scene().add_child(parts)
+	parts.set_emitting(true)
 	health -= 1
 	if health <= 0:
 		heal()
@@ -213,7 +225,20 @@ func _on_TimerShoot_timeout():
 		bullet.set_global_rotation(get_angle_to(Player.position))
 		get_tree().get_current_scene().add_child(bullet)
 		timer_shoot.set_wait_time(rand_range(0.8, 1.5) if fast_fire else rand_range(1.5, 3))
+	else:
+		timer_shoot.stop()
 
 
 func _on_TimerNav_timeout():
 	nav_path = nav_node.get_simple_path(get_global_position(), Player.get_global_position(), false)
+
+
+func _on_TimerGroundAttack_timeout():
+	if not healed:
+		$PartsGroundAttack.set_emitting(true)
+		var inst = ground_attack_ref.instance()
+		inst.set_position(Player.get_position() + Vector2(0, 6))
+		get_tree().get_current_scene().add_child(inst)
+		timer_ground_attack.set_wait_time(rand_range(2, 4))
+	else:
+		timer_ground_attack.stop()

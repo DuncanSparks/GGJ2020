@@ -3,6 +3,10 @@ extends Node2D
 var credits_open := false
 
 
+func _ready():
+	$ButtonSpeedrunTimer.set_text("Speedrun Timer - On" if Controller.speedrun_timer else "Speedrun Timer - Off")
+
+
 func _process(delta):
 	if Input.is_action_just_pressed("attack") and credits_open:
 		credits_open = false
@@ -21,7 +25,9 @@ func _on_ButtonStart_pressed():
 	get_tree().change_scene("res://Scenes/Overworld/Overworld_1.tscn")
 	Player.set_lock_movement(false)
 	Controller.show_ui(true)
+	Player.set_position(Vector2(160, 120))
 	Player.show()
+	Player.heal(10)
 	Controller.play_music()
 	Controller.reset()
 
@@ -48,6 +54,7 @@ func set_buttons_active(active: bool):
 	$ButtonStart.set_disabled(not active)
 	$ButtonCredits.set_disabled(not active)
 	$ButtonExit.set_disabled(not active)
+	$ButtonSpeedrunTimer.set_disabled(not active)
 
 
 func _on_ButtonSpeedrunTimer_pressed():

@@ -77,7 +77,9 @@ healed_text = "Is the king still alive?"
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 152 )
-navigator = NodePath("../Navigation2D")
+follow = false
+shoot = false
+ground_attack = true
 healed_text = "Is there anything left?"
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
@@ -89,6 +91,7 @@ navigator = NodePath("../Navigation2D")
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 3 )
 __meta__ = {
+"_edit_lock_": true,
 "_editor_description_": "What a world this is..."
 }
 [connection signal="room_is_cleared" from="." to="Barrier" method="queue_free"]

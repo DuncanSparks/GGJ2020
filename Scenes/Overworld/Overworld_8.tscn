@@ -72,19 +72,27 @@ shape = SubResource( 3 )
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 48, 40 )
 navigator = NodePath("../Navigation2D")
+healed_text = "Please, save the king."
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 40 )
-navigator = NodePath("../Navigation2D")
+follow = false
+shoot = false
+ground_attack = true
+healed_text = "I appreciate it."
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 144 )
 navigator = NodePath("../Navigation2D")
+healed_text = "I'm sorry I attacked you."
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 [connection signal="room_is_cleared" from="." to="Barrier" method="queue_free"]
 [connection signal="healed" from="Enemy" to="." method="clear_room"]
 [connection signal="healed" from="Enemy2" to="." method="clear_room"]

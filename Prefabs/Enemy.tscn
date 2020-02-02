@@ -37,14 +37,14 @@ shader_param/shift_amount = 0.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "left",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 21 ) ],
 "loop": true,
 "name": "right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "left",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -57,14 +57,14 @@ animations = [ {
 "name": "left_walk",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "up_walk",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 19 ), ExtResource( 5 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 21 ) ],
 "loop": true,
 "name": "right_walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "down_walk",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -72,9 +72,9 @@ animations = [ {
 "name": "down",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "up_walk",
+"name": "down_walk",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 27 ) ],
@@ -96,24 +96,22 @@ orbit_velocity_random = 0.0
 color = Color( 0.466667, 0.466667, 0.466667, 1 )
 
 [sub_resource type="Gradient" id=5]
-colors = PoolColorArray( 0, 1, 0, 1, 0, 1, 0, 0 )
+colors = PoolColorArray( 1, 0.706269, 0.511719, 1, 1, 0.631373, 0, 0 )
 
 [sub_resource type="GradientTexture" id=6]
 gradient = SubResource( 5 )
 
 [sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 2
+emission_box_extents = Vector3( 6, 6, 1 )
 flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 50.0
-initial_velocity_random = 0.5
+gravity = Vector3( 0, -120, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
 color_ramp = SubResource( 6 )
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=11]
 radius = 38.0
 
 [node name="Enemy" type="KinematicBody2D" groups=[
@@ -144,13 +142,11 @@ lifetime = 0.15
 explosiveness = 1.0
 process_material = SubResource( 4 )
 
-[node name="PartsHealed" type="Particles2D" parent="."]
-position = Vector2( 0, -8 )
+[node name="PartsGroundAttack" type="Particles2D" parent="."]
+position = Vector2( 0, -4 )
 emitting = false
-amount = 32
 one_shot = true
 explosiveness = 1.0
-local_coords = false
 process_material = SubResource( 7 )
 
 [node name="AreaText" type="Area2D" parent="."]
@@ -158,7 +154,7 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaText"]
 position = Vector2( 1, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="Text" type="RichTextLabel" parent="."]
 visible = false
@@ -200,4 +196,5 @@ wait_time = 0.5
 [connection signal="body_entered" from="AreaText" to="." method="_on_AreaText_body_entered"]
 [connection signal="body_exited" from="AreaText" to="." method="_on_AreaText_body_exited"]
 [connection signal="timeout" from="TimerShoot" to="." method="_on_TimerShoot_timeout"]
+[connection signal="timeout" from="TimerGroundAttack" to="." method="_on_TimerGroundAttack_timeout"]
 [connection signal="timeout" from="TimerNav" to="." method="_on_TimerNav_timeout"]

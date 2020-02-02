@@ -4,7 +4,7 @@ var can_pick_up := true
 
 
 func _ready():
-	if Controller.health_collected[get_tree().get_current_scene().filename + "--" + get_path()]:
+	if get_tree().get_current_scene().filename + "--" + get_path() in Controller.health_collected:
 		queue_free()
 
 

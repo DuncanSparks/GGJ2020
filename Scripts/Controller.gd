@@ -6,9 +6,12 @@ var num_enemies_healed: int = 0
 var rooms_cleared := []
 var enemies_healed := {}
 var health_collected := {}
+var fountains_purified := {}
 
 var speedrun_timer := false
 var timer: float = 0
+
+const sound_oneshot_ref := preload("res://Prefabs/SoundOneShot.tscn")
 
 onready var text_healed := $CanvasLayer/Label as Label
 onready var healthbar := $CanvasLayer/Health as TextureProgress
@@ -16,6 +19,7 @@ onready var timer_text := $CanvasLayer2/Timer as Label
 
 
 func _ready():
+	randomize()
 	OS.center_window()
 
 
@@ -30,6 +34,10 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("sys_fullscreen"):
 		OS.set_window_fullscreen(not OS.is_window_fullscreen())
+		
+	if Input.is_action_just_pressed("debug"):
+		for i in range(5):
+			fountains_purified[str(i)] = true
 
 
 func set_current_enemy_requirement(value: int):
@@ -44,6 +52,8 @@ func reset():
 	rooms_cleared.clear()
 	enemies_healed.clear()
 	health_collected.clear()
+	fountains_purified.clear()
+	num_enemies_healed = 0
 	timer = 0
 	
 	
@@ -61,10 +71,22 @@ func show_ui(show: bool):
 		
 func play_music():
 	$MusicDistorted.play()
+	
+	
+func music_is_playing() -> bool:
+	return $MusicDistorted.is_playing()
 
 
 func stop_music():
 	$MusicDistorted.stop()
+	
+	
+func play_sound_oneshot(sound: AudioStream, volume: int = 0):
+	var sb := sound_oneshot_ref.instance() as AudioStreamPlayer
+	sb.set_stream(sound)
+	sb.set_volume_db(volume)
+	get_tree().get_root().add_child(sb)
+	sb.play()
 
 
 func after_load():

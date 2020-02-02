@@ -43,7 +43,7 @@ __meta__ = {
 [node name="WorldText" parent="CanvasLayer" instance=ExtResource( 4 )]
 margin_left = 168.0
 margin_right = 280.0
-text_to_display = "Use your orb to heal the afflicted"
+text_to_display = "Use your orb to heal the corrupted"
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 88, 64 )

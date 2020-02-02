@@ -10,11 +10,12 @@ var walking := false
 
 var health: int = 5
 var iframes := false
+var invincible := false
 
 var loading := false
 var lock_movement := false
 
-export(bool) var bullet_available := true
+var bullet_available := true
 
 const bullet_ref := preload("res://Prefabs/PlayerBullet.tscn")
 
@@ -99,7 +100,7 @@ func set_lock_movement(value: bool):
 	
 	
 func is_in_iframes() -> bool:
-	return iframes
+	return iframes or invincible
 
 # ======================================================
 
