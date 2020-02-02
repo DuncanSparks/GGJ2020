@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Ggj 2020"
-run/main_scene="res://Scenes/TestScene.tscn"
+run/main_scene="res://Scenes/Overworld/Overworld_1.tscn"
 config/icon="res://icon.png"
 
 [autoload]

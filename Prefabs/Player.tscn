@@ -48,9 +48,14 @@ animations = [ {
 "name": "left_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 5 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "right_walk",
+"name": "down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "down_walk",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 12 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
@@ -58,15 +63,10 @@ animations = [ {
 "name": "up_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 5 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "down_walk",
+"name": "right_walk",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "down",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -100,6 +100,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+bullet_available = false
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

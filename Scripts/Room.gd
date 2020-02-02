@@ -8,4 +8,10 @@ func _ready():
 
 
 func clear_room():
-	Controller.rooms_cleared.push_back(filename)
+	var cleared := true
+	for node in get_tree().get_nodes_in_group('Enemy'):
+		if not node.healed:
+			cleared = false
+	if cleared:
+		Controller.rooms_cleared.push_back(filename)
+		emit_signal("room_is_cleared")
