@@ -60,6 +60,9 @@ func _ready():
 	if follow:
 		nav_path = nav_node.get_simple_path(get_global_position(), Player.get_global_position(), false)
 		$TimerNav.start()
+		
+	if ground_attack:
+		spr.get_material().set_shader_param("shift_amount", 0.333)
 	
 	
 func _process(delta):
