@@ -3,6 +3,7 @@ extends KinematicBody2D
 export(AudioStream) var sound_bullet
 export(AudioStream) var sound_healed
 export(AudioStream) var sound_teleport
+export(AudioStream) var sound_kick
 
 var health: int = 24
 var phase: int = 0
@@ -12,6 +13,7 @@ export(NodePath) var navigator
 const bullet_ref := preload("res://Prefabs/Bullet.tscn")
 const obstacle_ref := preload("res://Prefabs/Obstacle.tscn")
 const enemy_ref := preload("res://Prefabs/Enemy.tscn")
+const ball_ref := preload("res://Prefabs/BossBullet.tscn")
 
 const parts_healed := preload("res://Prefabs/Particles/PartsHealed.tscn")
 const parts_teleport := preload("res://Prefabs/Particles/PartsTeleport.tscn")
@@ -47,7 +49,8 @@ func is_healed():
 func attack():
 	#var num: int = int(round(rand_range(0, 2) if phase == 0 else rand_range(0, 3) if phase == 1 else rand_range(0, 4)))
 	#var num := 3
-	var num: int = int(round(rand_range(0, 1)))
+	#var num: int = int(round(rand_range(0, 2)))
+	var num := 1
 	match num:
 		0: # Bullets
 			for i in range(5):
@@ -61,7 +64,11 @@ func attack():
 		#1: # Terrain
 		#	pass
 		2: # Evil orb
-			pass
+			Controller.play_sound_oneshot(sound_kick)
+			var inst := ball_ref.instance()
+			inst.set_position(get_position())
+			inst.set_global_rotation(get_position().direction_to(Player.get_position()).angle())
+			get_tree().get_current_scene().add_child(inst)
 		1: # Spawn enemies
 			Controller.play_sound_oneshot(sound_teleport, 4)
 			for i in range(int(round(rand_range(1, 3)))):

@@ -53,15 +53,15 @@ animations = [ {
 "name": "up_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 5 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "right_walk",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "down",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 5 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "right_walk",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 1 ) ],
 "loop": true,
@@ -94,8 +94,8 @@ extents = Vector2( 6, 11 )
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
-collision_layer = 21
-collision_mask = 5
+collision_layer = 85
+collision_mask = 69
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true

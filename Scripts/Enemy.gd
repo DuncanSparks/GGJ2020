@@ -158,12 +158,13 @@ func heal(room_start: bool = false):
 	$CollisionShape2D.call_deferred("set_disabled", true)
 	if not room_start:
 		$SoundHeal.play()
-		Controller.add_enemy_healed()
-		Controller.enemies_healed[get_tree().get_current_scene().filename + "--" + get_path()] = get_position()
-		emit_signal("healed")
-		if disappear:
+		if not disappear:
+			Controller.add_enemy_healed()
+			Controller.enemies_healed[get_tree().get_current_scene().filename + "--" + get_path()] = get_position()
+		else:
 			$AnimationPlayer.play("Fade")
 			$TimerDisappear.start()
+		emit_signal("healed")
 
 
 func is_healed() -> bool:

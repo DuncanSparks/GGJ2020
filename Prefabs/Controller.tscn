@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Controller.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/NinePatch.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/Healthbar_front.png" type="Texture" id=4]
 [ext_resource path="res://Audio/battle_distorted.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sprites/Healthbar_back.png" type="Texture" id=6]
+[ext_resource path="res://Prefabs/Crosshair.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 104 )
@@ -87,6 +88,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="Label" type="Label" parent="CanvasLayer3"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 3 )
+text = "Press again to quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair" parent="CanvasLayer3" instance=ExtResource( 7 )]
+
 [node name="TimerWait" type="Timer" parent="."]
 
 [node name="MusicDistorted" type="AudioStreamPlayer" parent="."]
@@ -113,3 +129,8 @@ shape = SubResource( 2 )
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="BallWall"]
 position = Vector2( 160, -8 )
 shape = SubResource( 2 )
+
+[node name="TimerQuit" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+[connection signal="timeout" from="TimerQuit" to="." method="_on_TimerQuit_timeout"]
