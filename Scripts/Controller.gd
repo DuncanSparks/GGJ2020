@@ -68,6 +68,10 @@ func show_ui(show: bool):
 		
 func play_music():
 	$MusicDistorted.play()
+	
+	
+func music_is_playing() -> bool:
+	return $MusicDistorted.is_playing()
 
 
 func stop_music():

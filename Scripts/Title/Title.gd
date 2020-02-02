@@ -3,6 +3,10 @@ extends Node2D
 var credits_open := false
 
 
+func _ready():
+	$ButtonSpeedrunTimer.set_text("Speedrun Timer - On" if Controller.speedrun_timer else "Speedrun Timer - Off")
+
+
 func _process(delta):
 	if Input.is_action_just_pressed("attack") and credits_open:
 		credits_open = false
@@ -23,6 +27,7 @@ func _on_ButtonStart_pressed():
 	Controller.show_ui(true)
 	Player.set_position(Vector2(160, 120))
 	Player.show()
+	Player.heal(10)
 	Controller.play_music()
 	Controller.reset()
 

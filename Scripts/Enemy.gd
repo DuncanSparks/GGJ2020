@@ -229,6 +229,7 @@ func _on_TimerNav_timeout():
 
 func _on_TimerGroundAttack_timeout():
 	if not healed:
+		$PartsGroundAttack.set_emitting(true)
 		var inst = ground_attack_ref.instance()
 		inst.set_position(Player.get_position() + Vector2(0, 6))
 		get_tree().get_current_scene().add_child(inst)
