@@ -19,11 +19,16 @@ export(bool) var follow := true
 export(bool) var shoot := true
 export(NodePath) var navigator
 
+export(bool) var ground_attack := false
+
+var nav_path: PoolVector2Array = []
+
 export(String, MULTILINE) var healed_text
 
 const bullet_ref := preload("res://Prefabs/Bullet.tscn")
 
 onready var timer := $Timer as Timer
+onready var timer_gt := $TimerGroundAttack as Timer
 onready var spr := $Sprite as AnimatedSprite
 onready var text := $Text as RichTextLabel
 onready var timer_shoot := $TimerShoot as Timer
@@ -46,6 +51,10 @@ func _ready():
 	if id in Controller.enemies_healed:
 		heal(true)
 		set_position(Controller.enemies_healed[id])
+		
+	if follow:
+		nav_path = nav_node.get_simple_path(get_global_position(), Player.get_global_position(), false)
+		$TimerNav.start()
 	
 	
 func _process(delta):
@@ -68,11 +77,14 @@ func _process(delta):
 #		else:
 #			velocity.y = 1
 #			#face = Direction.Down
+
 		
-		var path := nav_node.get_simple_path(get_position(), Player.get_position())
-		print(path)
-		var angle = get_angle_to(path[1])
-		velocity = Vector2(cos(angle), sin(angle))
+		move_along_path(speed * delta)
+		
+#		nav_path = nav_node.get_simple_path(get_global_position() + Vector2(0, 4), Player.get_global_position(), false)
+#		var angle = get_angle_to(nav_path[1])
+#		#var angle = get_angle_to(nav_node.get_closest_point(Player.get_global_position()))
+#		velocity = Vector2(cos(angle), sin(angle))
 		
 			
 		walking = velocity != Vector2.ZERO
@@ -100,6 +112,19 @@ func hit():
 	health -= 1
 	if health <= 0:
 		heal()
+		
+		
+func move_along_path(distance: float):
+	var start_point := get_global_position()
+	for i in range(nav_path.size()):
+		var dist := start_point.distance_to(nav_path[0])
+		if distance <= dist and dist >= 0:
+			var angle = get_angle_to(nav_path[0])
+			velocity = Vector2(cos(angle), sin(angle))
+			break
+		distance -= dist
+		start_point = nav_path[0]
+		nav_path.remove(0)
 
 
 func heal(room_start: bool = false):
@@ -178,3 +203,7 @@ func _on_TimerShoot_timeout():
 		bullet.set_global_rotation(get_angle_to(Player.position))
 		get_tree().get_current_scene().add_child(bullet)
 		timer_shoot.set_wait_time(rand_range(1.5, 3))
+
+
+func _on_TimerNav_timeout():
+	nav_path = nav_node.get_simple_path(get_global_position(), Player.get_global_position(), false)

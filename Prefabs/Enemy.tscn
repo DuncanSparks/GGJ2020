@@ -52,14 +52,9 @@ animations = [ {
 "name": "left_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "up_walk",
+"name": "down_walk",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 19 ), ExtResource( 5 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 21 ) ],
@@ -67,10 +62,15 @@ animations = [ {
 "name": "right_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "down_walk",
+"name": "up_walk",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "down",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 27 ) ],
 "loop": true,
@@ -79,7 +79,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 6.5, 11 )
+extents = Vector2( 4.5, 3 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 2
@@ -126,7 +126,7 @@ frames = SubResource( 1 )
 animation = "healed"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.5, 3 )
+position = Vector2( 0.5, 11 )
 shape = SubResource( 2 )
 
 [node name="PartsDust" type="Particles2D" parent="."]
@@ -182,6 +182,11 @@ volume_db = 12.0
 [node name="Timer" type="Timer" parent="."]
 
 [node name="TimerShoot" type="Timer" parent="."]
+
+[node name="TimerGroundAttack" type="Timer" parent="."]
+
+[node name="TimerNav" type="Timer" parent="."]
 [connection signal="body_entered" from="AreaText" to="." method="_on_AreaText_body_entered"]
 [connection signal="body_exited" from="AreaText" to="." method="_on_AreaText_body_exited"]
 [connection signal="timeout" from="TimerShoot" to="." method="_on_TimerShoot_timeout"]
+[connection signal="timeout" from="TimerNav" to="." method="_on_TimerNav_timeout"]

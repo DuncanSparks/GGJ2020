@@ -1,19 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/TileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Prefabs/LoadingZone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Room.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 296, 24, 296, 152, 264, 152, 264, 40, 24, 24, 184, 40, 184, 152, 136, 152, 136, 40, 56, 40, 24, 152, 56, 152 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArray( 5, 6, 7, 8 ), PoolIntArray( 4, 5, 8 ), PoolIntArray( 4, 8, 9 ), PoolIntArray( 10, 4, 9, 11 ) ]
+outlines = [ PoolVector2Array( 24, 24, 24, 152, 56, 152, 56, 40, 136, 40, 136, 152, 184, 152, 184, 40, 264, 40, 264, 152, 296, 152, 296, 24 ) ]
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 24 )
 
 [node name="Scene" type="Node2D"]
 script = ExtResource( 5 )
 
-[node name="Navigation2D" type="Navigation2D" parent="."]
-
-[node name="TileMap" type="TileMap" parent="Navigation2D"]
+[node name="TileMap" type="TileMap" parent="."]
 z_index = -50
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
@@ -25,8 +28,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 3 )
+
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 40, 88 )
+position = Vector2( 40, 64 )
 speed = 55.0
 health = 1
 navigator = NodePath("../Navigation2D")
@@ -38,7 +46,7 @@ target_scene = "res://Scenes/Overworld/Overworld_3.tscn"
 direction = 3
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="healed" from="Enemy" to="." method="clear_room"]
 
 [editable path="LoadingZone"]

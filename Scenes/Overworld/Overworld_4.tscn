@@ -1,15 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/TileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Prefabs/LoadingZone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Room.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 40, 40, 280, 40, 280, 152, 184, 152, 184, 168, 136, 168, 136, 152, 40, 152 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 3, 4, 5, 6 ), PoolIntArray( 0, 3, 6 ), PoolIntArray( 0, 6, 7 ) ]
+outlines = [ PoolVector2Array( 40, 40, 40, 152, 136, 152, 136, 168, 184, 168, 184, 152, 280, 152, 280, 40 ) ]
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 8 )
 
 [node name="Scene" type="Node2D"]
 script = ExtResource( 5 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -50
@@ -27,12 +37,14 @@ __meta__ = {
 position = Vector2( 240, 48 )
 speed = 40.0
 health = 1
+navigator = NodePath("../Navigation2D")
 healed_text = "Are we still a family?"
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 88, 48 )
 speed = 35.0
 health = 1
+navigator = NodePath("../Navigation2D")
 healed_text = "Are we still brothers?"
 
 [node name="LoadingZone" parent="." instance=ExtResource( 2 )]
@@ -41,6 +53,6 @@ target_scene = "res://Scenes/Overworld/Overworld_3.tscn"
 direction = 1
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [editable path="LoadingZone"]
