@@ -14,7 +14,7 @@ var iframes := false
 var loading := false
 var lock_movement := false
 
-export(bool) var bullet_available := true
+var bullet_available := true
 
 const bullet_ref := preload("res://Prefabs/PlayerBullet.tscn")
 

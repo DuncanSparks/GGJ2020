@@ -44,6 +44,7 @@ func reset():
 	rooms_cleared.clear()
 	enemies_healed.clear()
 	health_collected.clear()
+	num_enemies_healed = 0
 	timer = 0
 	
 	

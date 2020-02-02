@@ -61,7 +61,7 @@ __meta__ = {
 navpoly = SubResource( 1 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 160, 40 )
+position = Vector2( 160, 88 )
 speed = 55.0
 navigator = NodePath("../Navigation2D")
 healed_text = "Ah..."
@@ -69,7 +69,9 @@ healed_text = "Ah..."
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 160, 128 )
 speed = 55.0
-navigator = NodePath("../Navigation2D")
+follow = false
+shoot = false
+ground_attack = true
 healed_text = "Ah..."
 
 [node name="LoadingZone" parent="." instance=ExtResource( 3 )]

@@ -28,7 +28,8 @@ func collide(body):
 	if body.is_in_group("Player") and not Player.is_in_iframes():
 		body.damage(1)
 	#animated_sprite.play('die')
-	delete()
+	if not body.is_in_group("Bullet"):
+		delete()
 
 
 func delete():

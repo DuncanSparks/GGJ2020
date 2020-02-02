@@ -75,7 +75,9 @@ navigator = NodePath("../Navigation2D")
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 40 )
-navigator = NodePath("../Navigation2D")
+follow = false
+shoot = false
+ground_attack = true
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 144 )

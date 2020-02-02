@@ -14,4 +14,5 @@ func clear_room():
 			cleared = false
 	if cleared:
 		Controller.rooms_cleared.push_back(filename)
-		emit_signal("room_is_cleared")
+		if filename != "res://Scenes/Overworld/Overworld_1.tscn":
+			emit_signal("room_is_cleared")

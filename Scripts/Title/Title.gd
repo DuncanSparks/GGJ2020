@@ -21,6 +21,7 @@ func _on_ButtonStart_pressed():
 	get_tree().change_scene("res://Scenes/Overworld/Overworld_1.tscn")
 	Player.set_lock_movement(false)
 	Controller.show_ui(true)
+	Player.set_position(Vector2(160, 120))
 	Player.show()
 	Controller.play_music()
 	Controller.reset()
@@ -48,6 +49,7 @@ func set_buttons_active(active: bool):
 	$ButtonStart.set_disabled(not active)
 	$ButtonCredits.set_disabled(not active)
 	$ButtonExit.set_disabled(not active)
+	$ButtonSpeedrunTimer.set_disabled(not active)
 
 
 func _on_ButtonSpeedrunTimer_pressed():

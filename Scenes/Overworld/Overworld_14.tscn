@@ -70,7 +70,10 @@ healed_text = "Ah..."
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 40, 144 )
 speed = 55.0
+follow = false
+shoot = false
 navigator = NodePath("../Navigation2D")
+ground_attack = true
 healed_text = "Ah..."
 
 [node name="LoadingZone" parent="." instance=ExtResource( 3 )]

@@ -10,10 +10,10 @@ vertices = PoolVector2Array( 24, 104, 24, 24, 136, 24, 136, 72, 264, 104, 184, 7
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArray( 5, 6, 7, 4 ), PoolIntArray( 4, 7, 8, 9 ), PoolIntArray( 9, 8, 10, 11 ) ]
 outlines = [ PoolVector2Array( 24, 136, 24, 152, 296, 152, 296, 24, 184, 24, 184, 72, 136, 72, 136, 24, 24, 24, 24, 104, 264, 104, 264, 136 ) ]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 8 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 32, 8 )
 
 [node name="Scene" type="Node2D"]
@@ -61,7 +61,7 @@ __meta__ = {
 navpoly = SubResource( 1 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 48 )
+position = Vector2( 280, 47 )
 speed = 55.0
 navigator = NodePath("../Navigation2D")
 healed_text = "Ah..."
@@ -70,21 +70,23 @@ healed_text = "Ah..."
 position = Vector2( 40, 144 )
 speed = 55.0
 follow = false
-healed_text = "Ah..."
+shoot = false
+ground_attack = true
+healed_text = "Mmmh..."
 
 [node name="LoadingZone" parent="." instance=ExtResource( 3 )]
 position = Vector2( 80, 0 )
 target_scene = "res://Scenes/Overworld/Overworld_18.tscn"
 
 [node name="CollisionShape2D" parent="LoadingZone" index="0"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="LoadingZone4" parent="." instance=ExtResource( 3 )]
 position = Vector2( 240, 0 )
 target_scene = "res://Scenes/Overworld/Overworld_18.tscn"
 
 [node name="CollisionShape2D" parent="LoadingZone4" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="LoadingZone3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 184 )
@@ -92,7 +94,7 @@ target_scene = "res://Scenes/Overworld/Overworld_16.tscn"
 direction = 1
 
 [node name="CollisionShape2D" parent="LoadingZone3" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 [connection signal="room_is_cleared" from="." to="Barrier" method="queue_free"]
 [connection signal="healed" from="Enemy" to="." method="clear_room"]
 [connection signal="healed" from="Enemy2" to="." method="clear_room"]
