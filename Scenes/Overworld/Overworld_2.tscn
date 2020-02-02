@@ -68,8 +68,8 @@ target_scene = "res://Scenes/Overworld/Overworld_3.tscn"
 shape = SubResource( 2 )
 [connection signal="ready" from="." to="CanvasLayer/WorldText" method="set_display" binds= [ true ]]
 [connection signal="room_is_cleared" from="." to="Barrier" method="queue_free"]
-[connection signal="healed" from="Enemy" to="." method="clear_room"]
 [connection signal="healed" from="Enemy" to="Barrier" method="queue_free"]
+[connection signal="healed" from="Enemy" to="." method="clear_room"]
 
 [editable path="LoadingZone"]
 

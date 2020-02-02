@@ -12,6 +12,7 @@ var health: int = 5
 var iframes := false
 
 var loading := false
+var lock_movement := false
 
 export(bool) var bullet_available := true
 
@@ -32,20 +33,21 @@ func _ready():
 func _process(delta):
 	set_z_index(int(get_position().y))
 	
-	var xx := int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	var yy := int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
+	if not lock_movement:
+		var xx := int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
+		var yy := int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
+		
+		velocity.x = xx
+		velocity.y = yy
 	
-	velocity.x = xx
-	velocity.y = yy
-	
-	walking = velocity != Vector2.ZERO
-	
-	direction_management()
-	sprite_management()
-	
-	if Input.is_action_just_pressed("attack") and bullet_available:
-		throw_bullet()
-		bullet_available = false
+		walking = velocity != Vector2.ZERO
+		
+		direction_management()
+		sprite_management()
+		
+		if Input.is_action_just_pressed("attack") and bullet_available:
+			throw_bullet()
+			bullet_available = false
 	
 	healthbar.set_value(health)
 
@@ -68,6 +70,11 @@ func damage(amount: int):
 	health -= amount
 	iframes = true
 	$AnimationPlayer.play("IFrames")
+	if health <= 0:
+		hide()
+		lock_movement = true
+		Controller.show_ui(false)
+		get_tree().change_scene("res://Scenes/GameOver.tscn")
 	
 	
 func heal(amount: int):
@@ -80,6 +87,10 @@ func is_loading() -> bool:
 	
 func set_loading(value: bool):
 	loading = value
+	
+	
+func get_health() -> int:
+	return health
 
 # ======================================================
 
