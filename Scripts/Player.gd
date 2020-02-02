@@ -49,6 +49,8 @@ func _process(delta):
 		if Input.is_action_just_pressed("attack") and bullet_available:
 			throw_bullet()
 			bullet_available = false
+	else:
+		velocity = Vector2.ZERO
 	
 	healthbar.set_value(health)
 
@@ -141,7 +143,7 @@ func sprite_management():
 			
 func throw_bullet():
 	var bullet := bullet_ref.instance()
-	bullet.set_position(get_position())
+	bullet.set_position(get_position() + Vector2(0, 4))
 	bullet.set_global_rotation(get_position().direction_to(get_global_mouse_position()).angle())
 	get_tree().get_current_scene().add_child(bullet)
 	sound_kick.play()

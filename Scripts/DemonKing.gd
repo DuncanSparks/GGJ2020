@@ -5,8 +5,8 @@ export(AudioStream) var sound_healed
 export(AudioStream) var sound_teleport
 export(AudioStream) var sound_kick
 
-var health: int = 24
-var phase: int = 0
+var health: int = 10
+var healed := false
 
 export(NodePath) var navigator
 
@@ -39,11 +39,19 @@ func hit():
 	parts.set_emitting(true)
 	health -= 1
 	if health <= 0:
-		print("YOU WON")
+		Player.invincible = true
+		Player.set_lock_movement(true)
+		$Sprite.play("healed")
+		get_tree().get_current_scene().get_node("MusicBoss").stop()
+		timer_attack.stop()
+		timer_teleport.stop()
+		timer_teleport2.stop()
+		healed = true
+		get_tree().get_current_scene().get_node("AnimationPlayer").play("Fade")
 		
 		
 func is_healed():
-	return false
+	return healed
 	
 	
 func attack():
