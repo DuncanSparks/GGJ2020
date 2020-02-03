@@ -73,6 +73,10 @@ func add_enemy_healed():
 	num_enemies_healed += 1
 	
 	
+func stop_timer():
+	speedrun_timer = false
+	
+	
 func show_ui(show: bool):
 	for child in $CanvasLayer.get_children():
 		child.set_visible(show)

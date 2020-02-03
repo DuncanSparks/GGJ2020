@@ -51,6 +51,7 @@ func _process(delta):
 			bullet_available = false
 	else:
 		velocity = Vector2.ZERO
+		walking = false
 	
 	healthbar.set_value(health)
 

@@ -20,6 +20,10 @@ func _ready():
 
 func _process(delta):
 	set_z_index(int(get_position().y))
+	
+	if position.x < -10 or position.x > 330 or position.y < -10 or position.y > 190:
+		queue_free()
+		Player.set_bullet_available(true)
 
 
 func _on_AreaPickUp_body_entered(body: Node):

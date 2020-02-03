@@ -4,9 +4,12 @@ export(AudioStream) var sound_bullet
 export(AudioStream) var sound_healed
 export(AudioStream) var sound_teleport
 export(AudioStream) var sound_kick
+export(AudioStream) var sound_heal
 
-var health: int = 10
+var health: int = 15
 var healed := false
+
+var enemies := []
 
 export(NodePath) var navigator
 
@@ -39,6 +42,8 @@ func hit():
 	parts.set_emitting(true)
 	health -= 1
 	if health <= 0:
+		Controller.play_sound_oneshot(sound_healed, 8)
+		Controller.stop_timer()
 		Player.invincible = true
 		Player.set_lock_movement(true)
 		$Sprite.play("healed")
@@ -47,7 +52,12 @@ func hit():
 		timer_teleport.stop()
 		timer_teleport2.stop()
 		healed = true
+		for enemy in enemies:
+			if enemy != null:
+				enemy.heal()
 		get_tree().get_current_scene().get_node("AnimationPlayer").play("Fade")
+		get_tree().get_current_scene().get_node("TimerEnd1").start()
+		get_tree().get_current_scene().get_node("TimerEnd2").start()
 		
 		
 func is_healed():
@@ -81,6 +91,7 @@ func attack():
 			enemy.speed = rand_range(40, 60)
 			enemy.navigator = navigator
 			get_tree().get_current_scene().add_child(enemy)
+			enemies.push_back(enemy)
 	else: # Evil orb
 		Controller.play_sound_oneshot(sound_kick)
 		var inst := ball_ref.instance()
@@ -125,3 +136,5 @@ func tele_in():
 	timer_attack.set_wait_time(rand_range(0.5, 1))
 	timer_attack.start()
 	
+func end_game():
+	get_tree().quit()
