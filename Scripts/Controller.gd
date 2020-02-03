@@ -47,9 +47,9 @@ func _process(delta):
 		else:
 			get_tree().quit()
 		
-	if Input.is_action_just_pressed("debug"):
-		for i in range(5):
-			fountains_purified[str(i)] = true
+	#if Input.is_action_just_pressed("debug"):
+	#	for i in range(5):
+	#		fountains_purified[str(i)] = true
 
 
 func set_current_enemy_requirement(value: int):
