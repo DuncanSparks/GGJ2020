@@ -52,9 +52,9 @@ func hit():
 		timer_teleport.stop()
 		timer_teleport2.stop()
 		healed = true
-		for enemy in enemies:
-			if enemy != null:
-				enemy.heal()
+		#for enemy in enemies:
+		#	if enemy != null:
+		#		enemy.heal()
 		get_tree().get_current_scene().get_node("AnimationPlayer").play("Fade")
 		get_tree().get_current_scene().get_node("TimerEnd1").start()
 		get_tree().get_current_scene().get_node("TimerEnd2").start()
