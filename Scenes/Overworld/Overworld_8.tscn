@@ -72,14 +72,17 @@ shape = SubResource( 3 )
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 48, 40 )
 navigator = NodePath("../Navigation2D")
+healed_text = "I'm sorry for everything."
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 40 )
 navigator = NodePath("../Navigation2D")
+healed_text = "I feel repaired."
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 144 )
 navigator = NodePath("../Navigation2D")
+healed_text = "I feel refreshed."
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 visible = false

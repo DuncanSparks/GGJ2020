@@ -64,7 +64,7 @@ navpoly = SubResource( 1 )
 position = Vector2( 160, 88 )
 speed = 55.0
 navigator = NodePath("../Navigation2D")
-healed_text = "Ah..."
+healed_text = "I believe in you."
 
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 160, 128 )
@@ -72,7 +72,7 @@ speed = 55.0
 follow = false
 shoot = false
 ground_attack = true
-healed_text = "Ah..."
+healed_text = "Below is the fountain."
 
 [node name="LoadingZone" parent="." instance=ExtResource( 3 )]
 position = Vector2( 320, 56 )

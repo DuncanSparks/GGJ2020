@@ -64,13 +64,13 @@ navpoly = SubResource( 1 )
 position = Vector2( 248, 144 )
 speed = 55.0
 navigator = NodePath("../Navigation2D")
-healed_text = "Ah..."
+healed_text = "Welcome back, hero."
 
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 40, 136 )
 speed = 55.0
 navigator = NodePath("../Navigation2D")
-healed_text = "Ah..."
+healed_text = "I don't remember anything..."
 
 [node name="LoadingZone" parent="." instance=ExtResource( 3 )]
 position = Vector2( 160, 0 )
